@@ -26,7 +26,7 @@ export const Wrapper = styled.ul`
   gap: 1rem;
   overflow-y: hidden;
   overflow: hidden;
-  padding: 0 1rem;
+  padding: 0 5rem;
   scroll-behavior: smooth;
 `;
 
@@ -107,6 +107,6 @@ export const ArrowPagination = styled.div`
         `}
 
   &:hover {
-    background-color: #00000090;
+    background: linear-gradient(to top, #00000000 5%, #00000090);
   }
 `;
