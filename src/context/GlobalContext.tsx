@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   trending: [],
   showSearchbar: false,
   setShowSearchbar: () => {},
+  getCategory: () => {},
 };
 
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
@@ -46,6 +47,23 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     return data;
   }
 
+  async function getCategory(
+    media_type: string,
+    category: string,
+    setState: (state: MoviesType[]) => void
+  ) {
+    const res = await API_URL.get(
+      `${media_type}/${category}?api_key=${API_KEY}&language=pt-BR&page=1`
+    );
+    let data: MoviesType[] = await res.data.results;
+
+    data.map((item) => {
+      item.media_type = media_type;
+    });
+
+    setState(data);
+  }
+
   useEffect(() => {
     getTrending();
   }, []);
@@ -56,6 +74,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         trending: trending.slice(0, 7),
         showSearchbar,
         setShowSearchbar,
+        getCategory,
       }}
     >
       {children}
