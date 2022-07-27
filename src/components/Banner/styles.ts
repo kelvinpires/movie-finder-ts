@@ -38,11 +38,14 @@ export const DescriptionWrapper = styled.div`
   background: linear-gradient(to right, #000 80%, #1f1f1e00);
 `;
 
-export const Title = styled.h1`
-  font-size: 4.6rem;
-  font-weight: 400;
-  color: var(--white);
-  max-width: 90%;
+export const LogoTitleWrapper = styled.div`
+  width: 100%;
+  height: auto;
+`;
+
+export const LogoTitleImg = styled.img`
+  width: 100%;
+  height: 100%;
 `;
 
 export const Overview = styled.p`
@@ -50,7 +53,7 @@ export const Overview = styled.p`
   color: var(--white);
   font-weight: 400;
   line-height: 1.6;
-  max-width: 90%;
+  max-width: 80%;
 `;
 
 export const ActionWrapper = styled.div`
