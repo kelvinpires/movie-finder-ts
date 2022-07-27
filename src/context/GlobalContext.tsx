@@ -31,11 +31,17 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
 
   async function getDetails(media_type: string, id: number) {
     const res = await API_URL.get(
-      `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images&include_image_language=pt-BR,en,null`
+      `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images&include_image_language=pt,en,null`
     );
-    const data = await res.data;
+    const data: MoviesType = await res.data;
 
-    console.log(data);
+    data.media_type = media_type;
+
+    const logosPT = data.images.logos.filter((logo) => logo.iso_639_1 === "pt");
+
+    if (logosPT.length > 0) {
+      data.images.logos = logosPT;
+    }
 
     return data;
   }
