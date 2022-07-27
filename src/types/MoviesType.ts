@@ -41,6 +41,12 @@ export type MoviesPropsContext = {
 
   setShowSearchbar: (state: boolean) => void;
   showSearchbar: boolean;
+
+  getCategory: (
+    media_type: string,
+    category: string,
+    setState: (state: MoviesType[]) => void
+  ) => void;
 };
 
 export type StateType = {
