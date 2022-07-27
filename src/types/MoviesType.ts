@@ -30,6 +30,10 @@ type ImagesType = {
   posters: Array<{
     file_path: string;
   }>;
+  logos: Array<{
+    file_path: string;
+    iso_639_1: string;
+  }>;
 };
 
 export type MoviesPropsContext = {
