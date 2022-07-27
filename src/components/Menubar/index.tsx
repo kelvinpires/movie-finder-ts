@@ -11,17 +11,17 @@ export const Menubar = () => {
       <NavigationUl>
         <NavigationLi>
           <NavigationLink to="/">
-            <House size={40} />
+            <House size={34} />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/">
-            <FilmStrip size={40} />
+            <FilmStrip size={34} />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/">
-            <Television size={40} />
+            <Television size={34} />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
@@ -29,7 +29,7 @@ export const Menubar = () => {
             onClick={() => setShowSearchbar(!showSearchbar)}
             to="#"
           >
-            <MagnifyingGlass size={40} />
+            <MagnifyingGlass size={34} />
           </NavigationLink>
         </NavigationLi>
       </NavigationUl>
