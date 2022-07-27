@@ -26,7 +26,7 @@ export const Wrapper = styled.ul`
   gap: 1rem;
   overflow-y: hidden;
   overflow: hidden;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   scroll-behavior: smooth;
 `;
 
