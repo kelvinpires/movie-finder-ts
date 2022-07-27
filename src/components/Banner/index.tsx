@@ -11,11 +11,12 @@ import {
   Content,
   DescriptionWrapper,
   Image,
+  LogoTitleImg,
+  LogoTitleWrapper,
   Overview,
   Pagination,
   PaginationContainer,
   Redirect,
-  Title,
   Wrapper,
 } from "./styles";
 
@@ -52,8 +53,15 @@ export const Banner = ({ content }: Props) => {
       </ArrowPagination>
       <Wrapper ref={carouselRef}>
         {content?.map((movie) => {
-          const { title, name, backdrop_path, id, media_type, overview } =
-            movie;
+          const {
+            title,
+            name,
+            backdrop_path,
+            id,
+            media_type,
+            overview,
+            images,
+          } = movie;
           const newOverview =
             overview.length > 250 ? overview.slice(0, 250) + "..." : overview;
 
@@ -61,10 +69,17 @@ export const Banner = ({ content }: Props) => {
             <Content key={id}>
               <DescriptionWrapper>
                 <Link
-                  style={{ textDecoration: "none", width: "100%" }}
+                  style={{ textDecoration: "none", maxWidth: "60%" }}
                   to={`/${media_type}/${id}`}
                 >
-                  <Title>{title || name}</Title>
+                  <LogoTitleWrapper>
+                    <LogoTitleImg
+                      loading="lazy"
+                      alt={title || name}
+                      title={title || name}
+                      src={`https://image.tmdb.org/t/p/w500${images.logos[0].file_path}`}
+                    />
+                  </LogoTitleWrapper>
                 </Link>
                 <Overview>{newOverview}</Overview>
                 <ActionWrapper>
@@ -78,7 +93,7 @@ export const Banner = ({ content }: Props) => {
               <BackdropWapper>
                 <Image
                   loading="lazy"
-                  src={`https://image.tmdb.org/t/p/w1280/${backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
                 />
               </BackdropWapper>
             </Content>
