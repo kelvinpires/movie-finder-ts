@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   showSearchbar: false,
   setShowSearchbar: () => {},
   getCategory: () => {},
+  getDetails: () => {},
 };
 
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
@@ -25,12 +26,16 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
 
     await data.map(({ media_type, id }: MoviesType) => {
       getDetails(media_type, id).then((data) =>
-        setTrending((prev) => [...prev, data])
+        setTrending((prev) => [...prev, data!])
       );
     });
   }
 
-  async function getDetails(media_type: string, id: number) {
+  async function getDetails(
+    media_type: string,
+    id: number,
+    setState?: (state: MoviesType[]) => void
+  ) {
     const res = await API_URL.get(
       `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images&include_image_language=pt,en,null`
     );
@@ -42,6 +47,10 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
 
     if (logosPT.length > 0) {
       data.images.logos = logosPT;
+    }
+
+    if (setState) {
+      return setState([data]);
     }
 
     return data;
@@ -75,6 +84,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         showSearchbar,
         setShowSearchbar,
         getCategory,
+        getDetails,
       }}
     >
       {children}
