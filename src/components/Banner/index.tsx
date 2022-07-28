@@ -17,6 +17,7 @@ import {
   Pagination,
   PaginationContainer,
   Redirect,
+  TitleText,
   Wrapper,
 } from "./styles";
 
@@ -89,14 +90,18 @@ export const Banner = ({ content }: Props) => {
                   style={{ textDecoration: "none", maxWidth: "60%" }}
                   to={`/${media_type}/${id}`}
                 >
-                  <LogoTitleWrapper>
-                    <LogoTitleImg
-                      loading="lazy"
-                      alt={title || name}
-                      title={title || name}
-                      src={`https://image.tmdb.org/t/p/w500${images.logos[0]?.file_path}`}
-                    />
-                  </LogoTitleWrapper>
+                  {images.logos.length > 0 ? (
+                    <LogoTitleWrapper>
+                      <LogoTitleImg
+                        loading="lazy"
+                        alt={title || name}
+                        title={title || name}
+                        src={`https://image.tmdb.org/t/p/w500${images.logos[0]?.file_path}`}
+                      />
+                    </LogoTitleWrapper>
+                  ) : (
+                    <TitleText>{title || name}</TitleText>
+                  )}
                 </Link>
                 <Overview>{newOverview}</Overview>
                 <ActionWrapper>

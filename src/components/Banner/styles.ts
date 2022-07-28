@@ -39,8 +39,14 @@ export const DescriptionWrapper = styled.div`
 `;
 
 export const LogoTitleWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   height: auto;
+`;
+
+export const TitleText = styled.h1`
+  font-size: 4.6rem;
+  font-weight: 400;
+  color: var(--white);
 `;
 
 export const LogoTitleImg = styled.img`
