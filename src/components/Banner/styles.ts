@@ -111,7 +111,8 @@ export const Image = styled.img`
 `;
 
 type SideType = {
-  side: string;
+  side?: string;
+  position?: boolean;
 };
 
 export const ArrowPagination = styled.div`
@@ -155,8 +156,14 @@ export const PaginationContainer = styled.div`
 
 export const Pagination = styled.button`
   border: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
-  background-color: var(--white);
+  background-color: var(--gray);
+
+  ${({ position }: SideType) =>
+    position &&
+    css`
+      background-color: var(--white);
+    `}
 `;
