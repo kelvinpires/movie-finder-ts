@@ -47,6 +47,11 @@ export type MoviesPropsContext = {
     category: string,
     setState: (state: MoviesType[]) => void
   ) => void;
+  getDetails: (
+    media_type: string,
+    id: number,
+    setState?: (state: MoviesType[]) => void
+  ) => void;
 };
 
 export type StateType = {
