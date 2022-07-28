@@ -12,7 +12,7 @@ export const Subtitle = styled.h2`
   font-size: 2.8rem;
   color: var(--white);
   font-weight: 400;
-  margin: 0 2rem 1rem;
+  margin: 0 5rem 1rem;
 `;
 
 export const Content = styled.div`
