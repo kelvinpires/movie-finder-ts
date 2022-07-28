@@ -19,7 +19,7 @@ export const GlobalStyles = createGlobalStyle`
         --white: #fff;
         --gray: #999;
         --black: #000;
-        --body: #1f1f1e;
+        --body: #141414;
         --yellow: #FFCB47
     }
 `;
