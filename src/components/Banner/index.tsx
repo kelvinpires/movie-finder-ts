@@ -1,4 +1,11 @@
-import { ArrowLeft, ArrowRight, Play, Plus } from "phosphor-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Play,
+  Plus,
+  Star,
+  StarHalf,
+} from "phosphor-react";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { MoviesType } from "../../types/MoviesType";
@@ -11,12 +18,14 @@ import {
   Content,
   DescriptionWrapper,
   Image,
+  InfoWrapper,
   LogoTitleImg,
   LogoTitleWrapper,
   Overview,
   Pagination,
   PaginationContainer,
   Redirect,
+  Span,
   TitleText,
   Wrapper,
 } from "./styles";
@@ -79,9 +88,34 @@ export const Banner = ({ content }: Props) => {
             media_type,
             overview,
             images,
+            vote_average,
+            runtime,
+            content_ratings,
+            release_dates,
+            release_date,
+            first_air_date,
           } = movie;
+
+          // overview
           const newOverview =
             overview.length > 250 ? overview.slice(0, 250) + "..." : overview;
+
+          // certification
+          const certification = content_ratings
+            ? content_ratings.results[0]?.rating
+            : release_dates.results[0]?.release_dates[0].certification;
+
+          // date
+          const date = release_date
+            ? new Date(release_date).toLocaleDateString()
+            : new Date(first_air_date).toLocaleDateString();
+
+          // runtime
+
+          const totalHours = runtime / 60;
+          const hour = Math.floor(totalHours);
+          const minutes = Math.round((totalHours - hour) * 60);
+          const time = `${hour}h ${minutes}min`;
 
           return (
             <Content key={id}>
@@ -103,6 +137,18 @@ export const Banner = ({ content }: Props) => {
                     <TitleText>{title || name}</TitleText>
                   )}
                 </Link>
+                <InfoWrapper>
+                  <Span>
+                    {vote_average < 6 ? (
+                      <StarHalf color="#FFCB47" size={20} weight="fill" />
+                    ) : (
+                      <Star color="#FFCB47" size={20} weight="fill" />
+                    )}
+                    {vote_average.toFixed(1)}
+                  </Span>
+                  •<Span>{date}</Span>•<Span>{time}</Span>•
+                  <Span className="certification">{certification}</Span>
+                </InfoWrapper>
                 <Overview>{newOverview}</Overview>
                 <ActionWrapper>
                   {content.length > 1 ? (

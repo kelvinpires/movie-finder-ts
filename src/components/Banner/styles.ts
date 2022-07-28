@@ -54,6 +54,28 @@ export const LogoTitleImg = styled.img`
   height: 100%;
 `;
 
+export const InfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--gray);
+`;
+
+export const Span = styled.span`
+  font-size: 1.6rem;
+  color: var(--gray);
+  font-weight: 400;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &.certification {
+    border: 0.1rem solid var(--gray);
+    padding: 0.4rem 0.7rem 0.3rem 0.5rem;
+  }
+`;
+
 export const Overview = styled.p`
   font-size: 1.6rem;
   color: var(--white);
