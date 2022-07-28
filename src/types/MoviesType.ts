@@ -21,16 +21,21 @@ export type MoviesType = {
   budget: number;
   vote_average: number;
   release_date: string;
+  first_air_date: string;
   release_dates: {
     results: Array<{
       iso_3166_1: string;
-      certification: string;
+      release_dates: [
+        {
+          certification: string;
+        }
+      ];
     }>;
   };
   content_ratings: {
     results: Array<{
       iso_3166_1: string;
-      certification: string;
+      rating: string;
     }>;
   };
   images: ImagesType;
