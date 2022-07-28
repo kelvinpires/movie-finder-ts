@@ -146,8 +146,12 @@ export const Banner = ({ content }: Props) => {
                     )}
                     {vote_average.toFixed(1)}
                   </Span>
-                  •<Span>{date}</Span>•<Span>{time}</Span>•
-                  <Span className="certification">{certification}</Span>
+                  {runtime && (
+                    <>
+                      •<Span>{time}</Span>
+                    </>
+                  )}
+                  •<Span className="certification">{certification}</Span>
                 </InfoWrapper>
                 <Overview>{newOverview}</Overview>
                 <ActionWrapper>
