@@ -1,9 +1,15 @@
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { API_URL } from "../hooks/useApi";
 import { MoviesPropsContext, MoviesType, StateType } from "../types/MoviesType";
 
 const INITIAL_STATE = {
-  trending: [],
+  getTrending: () => {},
   showSearchbar: false,
   setShowSearchbar: () => {},
   getCategory: () => {},
@@ -13,12 +19,13 @@ const INITIAL_STATE = {
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
 
 export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
-  const [trending, setTrending] = useState<MoviesType[]>([]);
   const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
 
   const API_KEY = import.meta.env.VITE_API_KEY;
 
-  async function getTrending() {
+  async function getTrending(
+    setState: (state: SetStateAction<MoviesType[]>) => void
+  ) {
     const res = await API_URL.get(
       `trending/all/day?api_key=${API_KEY}&language=pt-BR`
     );
@@ -26,7 +33,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
 
     await data.map(({ media_type, id }: MoviesType) => {
       getDetails(media_type, id).then((data) =>
-        setTrending((prev) => [...prev, data!])
+        setState((prev) => [...prev, data!])
       );
     });
   }
@@ -37,9 +44,25 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     setState?: (state: MoviesType[]) => void
   ) {
     const res = await API_URL.get(
-      `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images&include_image_language=pt,en,null`
+      `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images,release_dates,content_ratings&include_image_language=pt,en,null`
     );
     const data: MoviesType = await res.data;
+
+    const movieCertificationFilter = data.release_dates?.results.filter(
+      (result) => result.iso_3166_1 === "BR"
+    );
+
+    const tvCertificationFilter = data.content_ratings?.results.filter(
+      (result) => result.iso_3166_1 === "BR"
+    );
+
+    if (data.release_dates && movieCertificationFilter.length > 0) {
+      data.release_dates.results = movieCertificationFilter;
+    }
+
+    if (data.content_ratings && tvCertificationFilter.length > 0) {
+      data.content_ratings.results = tvCertificationFilter;
+    }
 
     data.media_type = media_type;
 
@@ -73,14 +96,10 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     setState(data);
   }
 
-  useEffect(() => {
-    getTrending();
-  }, []);
-
   return (
     <GlobalContext.Provider
       value={{
-        trending: trending.slice(0, 7),
+        getTrending,
         showSearchbar,
         setShowSearchbar,
         getCategory,

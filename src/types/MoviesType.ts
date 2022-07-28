@@ -1,3 +1,5 @@
+import { SetStateAction } from "react";
+
 export type MoviesType = {
   name: string;
   title: string;
@@ -19,7 +21,18 @@ export type MoviesType = {
   budget: number;
   vote_average: number;
   release_date: string;
-
+  release_dates: {
+    results: Array<{
+      iso_3166_1: string;
+      certification: string;
+    }>;
+  };
+  content_ratings: {
+    results: Array<{
+      iso_3166_1: string;
+      certification: string;
+    }>;
+  };
   images: ImagesType;
 };
 
@@ -37,7 +50,9 @@ type ImagesType = {
 };
 
 export type MoviesPropsContext = {
-  trending: MoviesType[];
+  getTrending: (
+    setState: (state: SetStateAction<MoviesType[]>) => void
+  ) => void;
 
   setShowSearchbar: (state: boolean) => void;
   showSearchbar: boolean;
