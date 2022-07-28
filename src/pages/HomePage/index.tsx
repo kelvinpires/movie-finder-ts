@@ -6,19 +6,21 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { MoviesType } from "../../types/MoviesType";
 
 export const HomePage = () => {
-  const { trending, getCategory } = useContext(GlobalContext);
+  const { getCategory, getTrending } = useContext(GlobalContext);
 
+  const [trending, setTrending] = useState<MoviesType[]>([]);
   const [popularMovies, setPopularMovies] = useState<MoviesType[]>([]);
   const [popularSeries, setPopularSeries] = useState<MoviesType[]>([]);
 
   useEffect(() => {
     getCategory("movie", "popular", setPopularMovies);
     getCategory("tv", "popular", setPopularSeries);
+    getTrending(setTrending);
   }, []);
 
   return (
     <>
-      <Banner content={trending} />
+      <Banner content={trending.slice(0, 7)} />
       {popularMovies && (
         <Carousel content={popularMovies} subtitle="Filmes populares" />
       )}
