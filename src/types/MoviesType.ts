@@ -9,13 +9,9 @@ export type MoviesType = {
   poster_path: string;
   media_type: string;
   genres: Array<{ id: number; name: string }>;
-  videos: Array<{
-    key: string;
-    type: string;
-    official: boolean;
-    name: string;
-    id: string;
-  }>;
+  videos: {
+    results: VideosType[];
+  };
   runtime: number;
   revenue: number;
   budget: number;
@@ -39,6 +35,22 @@ export type MoviesType = {
     }>;
   };
   images: ImagesType;
+  production_companies: Array<{
+    id: number;
+    name: string;
+  }>;
+  created_by: Array<{
+    id: number;
+    name: string;
+  }>;
+};
+
+type VideosType = {
+  key: string;
+  type: string;
+  official: boolean;
+  name: string;
+  id: string;
 };
 
 type ImagesType = {
