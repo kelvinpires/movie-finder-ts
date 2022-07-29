@@ -62,18 +62,19 @@ export const InfoWrapper = styled.div`
 `;
 
 export const Span = styled.span`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: var(--gray);
   font-weight: 400;
 
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+`;
 
-  &.certification {
-    border: 0.1rem solid var(--gray);
-    padding: 0.4rem 0.7rem 0.3rem 0.5rem;
-  }
+export const Certification = styled.div`
+  border: 0.1rem solid var(--gray);
+  padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+  display: inline-block;
+  margin-left: 0.5rem;
 `;
 
 export const Overview = styled.p`

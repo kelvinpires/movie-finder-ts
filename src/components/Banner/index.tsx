@@ -14,6 +14,7 @@ import {
   ArrowPagination,
   BackdropWapper,
   Button,
+  Certification,
   Container,
   Content,
   DescriptionWrapper,
@@ -144,14 +145,14 @@ export const Banner = ({ content }: Props) => {
                     ) : (
                       <Star color="#FFCB47" size={20} weight="fill" />
                     )}
-                    {vote_average.toFixed(1)}
+                    {vote_average.toFixed(1)} • {date}
+                    {runtime && <> • {time}</>} •
+                    {certification && (
+                      <>
+                        <Certification>{certification}</Certification>
+                      </>
+                    )}
                   </Span>
-                  {runtime && (
-                    <>
-                      •<Span>{time}</Span>
-                    </>
-                  )}
-                  •<Span className="certification">{certification}</Span>
                 </InfoWrapper>
                 <Overview>{newOverview}</Overview>
                 <ActionWrapper>
