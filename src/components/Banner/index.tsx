@@ -116,7 +116,9 @@ export const Banner = ({ content }: Props) => {
           const totalHours = runtime / 60;
           const hour = Math.floor(totalHours);
           const minutes = Math.round((totalHours - hour) * 60);
-          const time = `${hour}h ${minutes}min`;
+          let time = `${hour}h ${minutes}min`;
+
+          time = runtime > 0 ? time : "";
 
           return (
             <Content key={id}>
@@ -145,12 +147,9 @@ export const Banner = ({ content }: Props) => {
                     ) : (
                       <Star color="#FFCB47" size={20} weight="fill" />
                     )}
-                    {vote_average.toFixed(1)} • {date}
-                    {runtime && <> • {time}</>} •
+                    {`${vote_average.toFixed(1)} • ${date} • ${time} •`}
                     {certification && (
-                      <>
-                        <Certification>{certification}</Certification>
-                      </>
+                      <Certification>{certification}</Certification>
                     )}
                   </Span>
                 </InfoWrapper>
