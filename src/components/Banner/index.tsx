@@ -147,7 +147,9 @@ export const Banner = ({ content }: Props) => {
                     ) : (
                       <Star color="#FFCB47" size={20} weight="fill" />
                     )}
-                    {`${vote_average.toFixed(1)} • ${date} • ${time} •`}
+                    {`${vote_average.toFixed(1)} • ${date}  ${
+                      time ? "•" + time : ""
+                    } •`}
                     {certification && (
                       <Certification>{certification}</Certification>
                     )}
