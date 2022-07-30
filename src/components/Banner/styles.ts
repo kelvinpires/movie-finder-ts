@@ -25,10 +25,10 @@ export const Content = styled.div`
 export const DescriptionWrapper = styled.div`
   position: absolute;
   left: 0;
-  max-width: 50%;
+  width: 50%;
   top: 0;
   height: 100%;
-  padding-left: 8rem;
+  padding-left: 6rem;
   z-index: 2;
   display: flex;
   align-items: flex-start;
@@ -71,7 +71,8 @@ export const Span = styled.span`
 `;
 
 export const Certification = styled.div`
-  border: 0.1rem solid var(--gray);
+  border: 0.2rem solid var(--gray);
+  border-radius: 0.5rem;
   padding: 0.3rem 0.4rem 0.3rem 0.4rem;
   display: inline-block;
   margin-left: 0.5rem;
@@ -82,7 +83,6 @@ export const Overview = styled.p`
   color: var(--white);
   font-weight: 400;
   line-height: 1.6;
-  max-width: 80%;
 `;
 
 export const ActionWrapper = styled.div`
@@ -122,6 +122,11 @@ export const Button = styled.button`
 
   &:hover {
     background-color: var(--body);
+  }
+
+  &.watchlist {
+    padding: 1.5rem;
+    border-radius: 50%;
   }
 `;
 
