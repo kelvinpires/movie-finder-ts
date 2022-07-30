@@ -39,7 +39,7 @@ export const DescriptionWrapper = styled.div`
 `;
 
 export const LogoTitleWrapper = styled.div`
-  width: 80%;
+  width: 70%;
   height: auto;
 `;
 
@@ -89,7 +89,7 @@ export const ActionWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
 `;
 
 export const Redirect = styled(Link)`
