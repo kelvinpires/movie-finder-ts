@@ -47,6 +47,7 @@ export const MediaPage = () => {
               first_air_date,
               genres,
               created_by,
+              "watch/providers": providers,
             } = item;
 
             // date
@@ -151,6 +152,23 @@ export const MediaPage = () => {
                               {production.name}
                             </Link>
                           ))}
+                        </InfoValue>
+                      </InfoLi>
+                    )}
+                    {providers.results.BR?.flatrate?.length > 0 && (
+                      <InfoLi>
+                        <InfoLabel>Disponível</InfoLabel>
+                        <InfoValue>
+                          {providers.results.BR.flatrate?.map(
+                            ({ logo_path, provider_id, provider_name }) => (
+                              <img
+                                key={provider_id}
+                                src={`https://image.tmdb.org/t/p/w45${logo_path}`}
+                                title={provider_name}
+                                alt={provider_name}
+                              />
+                            )
+                          )}
                         </InfoValue>
                       </InfoLi>
                     )}

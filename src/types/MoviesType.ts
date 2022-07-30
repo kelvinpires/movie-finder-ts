@@ -43,6 +43,17 @@ export type MoviesType = {
     id: number;
     name: string;
   }>;
+  "watch/providers": {
+    results: {
+      BR: {
+        flatrate: Array<{
+          logo_path: string;
+          provider_id: number;
+          provider_name: string;
+        }>;
+      };
+    };
+  };
 };
 
 type VideosType = {

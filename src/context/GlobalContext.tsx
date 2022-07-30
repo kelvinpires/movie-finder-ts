@@ -44,7 +44,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     setState?: (state: MoviesType[]) => void
   ) {
     const res = await API_URL.get(
-      `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images,release_dates,content_ratings&include_image_language=pt,en,null`
+      `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images,release_dates,content_ratings,watch/providers&include_image_language=pt,en,null`
     );
     const data: MoviesType = await res.data;
 
