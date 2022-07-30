@@ -3,12 +3,19 @@ import {
   PropsWithChildren,
   SetStateAction,
   useEffect,
+  useReducer,
   useState,
 } from "react";
 import { API_URL } from "../hooks/useApi";
-import { MoviesPropsContext, MoviesType, StateType } from "../types/MoviesType";
+import { MoviesPropsContext, MoviesType } from "../types/MoviesType";
+import AppReducer from "./AppReducer";
 
 const INITIAL_STATE = {
+  store: {
+    watchlist: localStorage.watchlist ? JSON.parse(localStorage.watchlist) : [],
+  },
+  addToWatchlist: () => {},
+  removeFromWatchlist: () => {},
   getTrending: () => {},
   showSearchbar: false,
   setShowSearchbar: () => {},
@@ -19,7 +26,19 @@ const INITIAL_STATE = {
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
 
 export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
+  const [state, dispatch] = useReducer(AppReducer, INITIAL_STATE.store);
   const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
+
+  function addToWatchlist(content: { media_type: string; id: number }) {
+    dispatch({ type: "ADD_TO_WATCHLIST", payload: content });
+  }
+  function removeFromWatchlist(content: { media_type: string; id: number }) {
+    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: content });
+  }
+
+  useEffect(() => {
+    localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
+  }, [state]);
 
   const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -99,6 +118,9 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <GlobalContext.Provider
       value={{
+        store: state,
+        addToWatchlist,
+        removeFromWatchlist,
         getTrending,
         showSearchbar,
         setShowSearchbar,

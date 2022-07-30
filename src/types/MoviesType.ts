@@ -92,6 +92,14 @@ type ImagesType = {
 };
 
 export type MoviesPropsContext = {
+  store: {
+    watchlist: Array<{
+      id: number;
+      media_type: string;
+    }>;
+  };
+  addToWatchlist: (content: { media_type: string; id: number }) => void;
+  removeFromWatchlist: (content: { media_type: string; id: number }) => void;
   getTrending: (
     setState: (state: SetStateAction<MoviesType[]>) => void
   ) => void;

@@ -1,13 +1,15 @@
 import {
   ArrowLeft,
   ArrowRight,
+  Check,
   Play,
   Plus,
   Star,
   StarHalf,
 } from "phosphor-react";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../../context/GlobalContext";
 import { MoviesType } from "../../types/MoviesType";
 import {
   ActionWrapper,
@@ -38,6 +40,9 @@ type Props = {
 export const Banner = ({ content }: Props) => {
   const [position, setPosition] = useState<number>(0);
   const carouselRef = useRef<HTMLDivElement | null>(null);
+
+  const { addToWatchlist, removeFromWatchlist, store } =
+    useContext(GlobalContext);
 
   function handlePagination(side: string, index?: number) {
     const scroll = carouselRef.current!.offsetWidth;
@@ -97,9 +102,12 @@ export const Banner = ({ content }: Props) => {
             first_air_date,
           } = movie;
 
+          // is stored?
+          const isStored = store.watchlist.find((item) => item.id === id);
+
           // overview
           const newOverview =
-            overview.length > 250 ? overview.slice(0, 250) + "..." : overview;
+            overview.length > 160 ? overview.slice(0, 160) + "..." : overview;
 
           // certification
           const certification = content_ratings
@@ -161,15 +169,28 @@ export const Banner = ({ content }: Props) => {
                     <Redirect to={`/${media_type}/${id}`}>Detalhes</Redirect>
                   ) : (
                     <Button>
-                      <Play size={20} />
+                      <Play weight="bold" size={20} />
                       Ver trailer
                     </Button>
                   )}
 
-                  <Button>
-                    <Plus size={20} />
-                    Adicionar à lista
-                  </Button>
+                  {!isStored ? (
+                    <Button
+                      onClick={() => addToWatchlist({ media_type, id })}
+                      title="Adicionar à lista"
+                      className="watchlist"
+                    >
+                      <Plus weight="bold" size={20} />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => removeFromWatchlist({ media_type, id })}
+                      title="Remover da lista"
+                      className="watchlist"
+                    >
+                      <Check weight="bold" size={20} />
+                    </Button>
+                  )}
                 </ActionWrapper>
               </DescriptionWrapper>
               <BackdropWapper>
