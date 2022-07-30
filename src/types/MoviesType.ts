@@ -1,5 +1,16 @@
 import { SetStateAction } from "react";
 
+export type PersonType = {
+  name: string;
+  biography?: string;
+  id: number;
+  birthday?: string;
+  place_of_birth?: string;
+  profile_path: string;
+  deathday?: string;
+  character?: string;
+};
+
 export type MoviesType = {
   name: string;
   title: string;
@@ -43,6 +54,9 @@ export type MoviesType = {
     id: number;
     name: string;
   }>;
+  credits: {
+    cast: PersonType[];
+  };
   "watch/providers": {
     results: {
       BR: {
