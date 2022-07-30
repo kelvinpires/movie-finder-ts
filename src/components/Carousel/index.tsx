@@ -1,6 +1,12 @@
-import { ArrowLeft, ArrowRight, Star, StarHalf } from "phosphor-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ImageSquare,
+  Star,
+  StarHalf,
+} from "phosphor-react";
 import { useRef } from "react";
-import { MoviesType } from "../../types/MoviesType";
+import { MoviesType, PersonType } from "../../types/MoviesType";
 import {
   ArrowPagination,
   Card,
@@ -8,6 +14,7 @@ import {
   Content,
   DescriptionWrapper,
   Image,
+  NotFoundImg,
   PosterWrapper,
   Rate,
   Redirect,
@@ -17,11 +24,12 @@ import {
 } from "./styles";
 
 type Props = {
-  content: MoviesType[];
+  content?: MoviesType[];
+  persons?: PersonType[];
   subtitle: string;
 };
 
-export const Carousel = ({ content, subtitle }: Props) => {
+export const Carousel = ({ content, persons, subtitle }: Props) => {
   const carouselRef = useRef<HTMLUListElement | null>(null);
 
   function handlePagination(side: string) {
@@ -45,15 +53,22 @@ export const Carousel = ({ content, subtitle }: Props) => {
           <ArrowLeft size={40} weight="bold" />
         </ArrowPagination>
         <Wrapper ref={carouselRef}>
-          {content.map((item) => {
+          {content?.map((item) => {
             return (
               <Card key={item.id}>
                 <Redirect to={`/${item.media_type}/${item.id}`}>
-                  <PosterWrapper>
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`}
-                    />
-                  </PosterWrapper>
+                  {item.poster_path ? (
+                    <PosterWrapper>
+                      <Image
+                        loading="lazy"
+                        src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`}
+                      />
+                    </PosterWrapper>
+                  ) : (
+                    <NotFoundImg>
+                      <ImageSquare color="#999" weight="duotone" size={60} />
+                    </NotFoundImg>
+                  )}
                   <DescriptionWrapper>
                     <Title>{item.title || item.name}</Title>
                     <Rate>
@@ -65,6 +80,33 @@ export const Carousel = ({ content, subtitle }: Props) => {
 
                       {item.vote_average}
                     </Rate>
+                  </DescriptionWrapper>
+                </Redirect>
+              </Card>
+            );
+          })}
+          {persons?.map((person) => {
+            return (
+              <Card key={person.id}>
+                <Redirect to={`/person/${person.id}`}>
+                  {person.profile_path ? (
+                    <PosterWrapper>
+                      <Image
+                        loading="lazy"
+                        src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${person.profile_path}`}
+                      />
+                    </PosterWrapper>
+                  ) : (
+                    <NotFoundImg>
+                      <ImageSquare color="#999" weight="duotone" size={60} />
+                    </NotFoundImg>
+                  )}
+
+                  <DescriptionWrapper>
+                    <Title as="span">{person.name}</Title>
+                    <Title style={{ color: "#999" }} as="span">
+                      {person.character}
+                    </Title>
                   </DescriptionWrapper>
                 </Redirect>
               </Card>

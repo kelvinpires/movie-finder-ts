@@ -59,6 +59,15 @@ export const Image = styled.img`
   object-fit: cover;
 `;
 
+export const NotFoundImg = styled.div`
+  width: 25rem;
+  height: 37rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid var(--gray);
+`;
+
 export const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
