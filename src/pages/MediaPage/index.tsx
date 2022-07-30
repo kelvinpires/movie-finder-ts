@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Banner } from "../../components/Banner";
+import { Carousel } from "../../components/Carousel";
 import { GlobalContext } from "../../context/GlobalContext";
 import { MoviesType } from "../../types/MoviesType";
 import {
+  Container,
   DescriptionWrapper,
   Details,
   Image,
@@ -48,6 +50,7 @@ export const MediaPage = () => {
               genres,
               created_by,
               "watch/providers": providers,
+              credits,
             } = item;
 
             // date
@@ -62,119 +65,128 @@ export const MediaPage = () => {
             const time = `${hour}h ${minutes}min`;
 
             return (
-              <Details key={id}>
-                <PosterWrapper>
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${poster_path}`}
-                    alt={`Pôster de ${title || name}`}
-                  />
-                </PosterWrapper>
-                <DescriptionWrapper>
-                  <Title>{title || name}</Title>
+              <Container key={id}>
+                <Details>
+                  <PosterWrapper>
+                    <Image
+                      loading="lazy"
+                      src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${poster_path}`}
+                      alt={`Pôster de ${title || name}`}
+                    />
+                  </PosterWrapper>
+                  <DescriptionWrapper>
+                    <Title>{title || name}</Title>
 
-                  <Subtitle>Sinopse</Subtitle>
-                  <Overview>{overview}</Overview>
-                  <InfoUl>
-                    <InfoLi>
-                      <InfoLabel>Data de lançamento</InfoLabel>
-                      <InfoValue>{date}</InfoValue>
-                    </InfoLi>
-                    {created_by && (
+                    <Subtitle>Sinopse</Subtitle>
+                    <Overview>{overview}</Overview>
+                    <InfoUl>
                       <InfoLi>
-                        <InfoLabel>Criado por</InfoLabel>
-                        <InfoValue>
-                          {created_by.map((person) => (
-                            <Link
-                              key={person.id}
-                              style={{ color: "#fff" }}
-                              to={`/person/${person.id}`}
-                            >
-                              {person.name}
-                            </Link>
-                          ))}
-                        </InfoValue>
+                        <InfoLabel>Data de lançamento</InfoLabel>
+                        <InfoValue>{date}</InfoValue>
                       </InfoLi>
-                    )}
-                    {runtime && (
-                      <InfoLi>
-                        <InfoLabel>Duração</InfoLabel>
-                        <InfoValue>{time}</InfoValue>
-                      </InfoLi>
-                    )}
-                    {budget > 0 && (
-                      <InfoLi>
-                        <InfoLabel>Orçamento</InfoLabel>
-                        <InfoValue>
-                          {budget.toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "usd",
-                          })}
-                        </InfoValue>
-                      </InfoLi>
-                    )}
-                    {revenue > 0 && (
-                      <InfoLi>
-                        <InfoLabel>Receita</InfoLabel>
-                        <InfoValue>
-                          {revenue.toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "usd",
-                          })}
-                        </InfoValue>
-                      </InfoLi>
-                    )}
-                    {genres.length > 0 && (
-                      <InfoLi>
-                        <InfoLabel>Gêneros</InfoLabel>
-                        <InfoValue>
-                          {genres.map((genre) => (
-                            <Link
-                              key={genre.id}
-                              style={{ color: "#fff" }}
-                              to={`/category/${genre.id}`}
-                            >
-                              {genre.name}
-                            </Link>
-                          ))}
-                        </InfoValue>
-                      </InfoLi>
-                    )}
-                    {production_companies.length > 0 && (
-                      <InfoLi>
-                        <InfoLabel>Produções</InfoLabel>
-                        <InfoValue>
-                          {production_companies.map((production) => (
-                            <Link
-                              key={production.id}
-                              style={{ color: "#999" }}
-                              to="#"
-                            >
-                              {production.name}
-                            </Link>
-                          ))}
-                        </InfoValue>
-                      </InfoLi>
-                    )}
-                    {providers.results.BR?.flatrate?.length > 0 && (
-                      <InfoLi>
-                        <InfoLabel>Disponível</InfoLabel>
-                        <InfoValue>
-                          {providers.results.BR.flatrate?.map(
-                            ({ logo_path, provider_id, provider_name }) => (
-                              <img
-                                key={provider_id}
-                                src={`https://image.tmdb.org/t/p/w45${logo_path}`}
-                                title={provider_name}
-                                alt={provider_name}
-                              />
-                            )
-                          )}
-                        </InfoValue>
-                      </InfoLi>
-                    )}
-                  </InfoUl>
-                </DescriptionWrapper>
-              </Details>
+                      {created_by && (
+                        <InfoLi>
+                          <InfoLabel>Criado por</InfoLabel>
+                          <InfoValue>
+                            {created_by.map((person) => (
+                              <Link
+                                key={person.id}
+                                style={{ color: "#fff" }}
+                                to={`/person/${person.id}`}
+                              >
+                                {person.name}
+                              </Link>
+                            ))}
+                          </InfoValue>
+                        </InfoLi>
+                      )}
+                      {runtime && (
+                        <InfoLi>
+                          <InfoLabel>Duração</InfoLabel>
+                          <InfoValue>{time}</InfoValue>
+                        </InfoLi>
+                      )}
+                      {budget > 0 && (
+                        <InfoLi>
+                          <InfoLabel>Orçamento</InfoLabel>
+                          <InfoValue>
+                            {budget.toLocaleString("pt-BR", {
+                              style: "currency",
+                              currency: "usd",
+                            })}
+                          </InfoValue>
+                        </InfoLi>
+                      )}
+                      {revenue > 0 && (
+                        <InfoLi>
+                          <InfoLabel>Receita</InfoLabel>
+                          <InfoValue>
+                            {revenue.toLocaleString("pt-BR", {
+                              style: "currency",
+                              currency: "usd",
+                            })}
+                          </InfoValue>
+                        </InfoLi>
+                      )}
+                      {genres.length > 0 && (
+                        <InfoLi>
+                          <InfoLabel>Gêneros</InfoLabel>
+                          <InfoValue>
+                            {genres.map((genre) => (
+                              <Link
+                                key={genre.id}
+                                style={{ color: "#fff" }}
+                                to={`/category/${genre.id}`}
+                              >
+                                {genre.name}
+                              </Link>
+                            ))}
+                          </InfoValue>
+                        </InfoLi>
+                      )}
+                      {production_companies.length > 0 && (
+                        <InfoLi>
+                          <InfoLabel>Produções</InfoLabel>
+                          <InfoValue>
+                            {production_companies.map((production) => (
+                              <Link
+                                key={production.id}
+                                style={{ color: "#999" }}
+                                to="#"
+                              >
+                                {production.name}
+                              </Link>
+                            ))}
+                          </InfoValue>
+                        </InfoLi>
+                      )}
+                      {providers.results.BR?.flatrate?.length > 0 && (
+                        <InfoLi>
+                          <InfoLabel>Disponível</InfoLabel>
+                          <InfoValue>
+                            {providers.results.BR.flatrate?.map(
+                              ({ logo_path, provider_id, provider_name }) => (
+                                <img
+                                  loading="lazy"
+                                  key={provider_id}
+                                  src={`https://image.tmdb.org/t/p/w45${logo_path}`}
+                                  title={provider_name}
+                                  alt={provider_name}
+                                />
+                              )
+                            )}
+                          </InfoValue>
+                        </InfoLi>
+                      )}
+                    </InfoUl>
+                  </DescriptionWrapper>
+                </Details>
+                <Carousel
+                  key={title}
+                  subtitle="Elenco"
+                  persons={credits.cast}
+                />
+              </Container>
             );
           })}
         </>

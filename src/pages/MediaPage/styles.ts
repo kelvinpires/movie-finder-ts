@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const Container = styled.div``;
+
 export const Details = styled.section`
   padding: 10rem 5rem 2rem;
   display: flex;
