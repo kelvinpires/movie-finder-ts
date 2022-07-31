@@ -27,7 +27,8 @@ export const MediaPage = () => {
 
   useEffect(() => {
     getDetails(media_type!, Number(id)!, setContent);
-  }, []);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
 
   return (
     <>
@@ -51,6 +52,7 @@ export const MediaPage = () => {
               created_by,
               "watch/providers": providers,
               credits,
+              recommendations,
             } = item;
 
             // date
@@ -185,6 +187,11 @@ export const MediaPage = () => {
                   key={title}
                   subtitle="Elenco"
                   persons={credits.cast}
+                />
+                <Carousel
+                  key="recommendations"
+                  subtitle="Conteúdos recomendados"
+                  recommendations={recommendations.results}
                 />
               </Container>
             );

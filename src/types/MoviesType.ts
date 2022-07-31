@@ -68,6 +68,16 @@ export type MoviesType = {
       };
     };
   };
+  recommendations: {
+    results: Array<{
+      name: string;
+      title: string;
+      id: number;
+      media_type: string;
+      poster_path: string;
+      vote_average: number;
+    }>;
+  };
 };
 
 type VideosType = {
