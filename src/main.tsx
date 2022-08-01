@@ -5,10 +5,8 @@ import { GlobalContextProvider } from "./context/GlobalContext";
 import { GlobalStyles } from "./GlobalStyles";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <GlobalContextProvider>
-      <GlobalStyles />
-      <App />
-    </GlobalContextProvider>
-  </React.StrictMode>
+  <GlobalContextProvider>
+    <GlobalStyles />
+    <App />
+  </GlobalContextProvider>
 );
