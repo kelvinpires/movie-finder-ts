@@ -5,13 +5,9 @@ import {
   Plus,
   Television,
 } from "phosphor-react";
-import React, { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
 import { Nav, NavigationLi, NavigationLink, NavigationUl } from "./styles";
 
 export const Menubar = () => {
-  const { setShowSearchbar, showSearchbar } = useContext(GlobalContext);
-
   return (
     <Nav>
       <NavigationUl>
@@ -36,10 +32,7 @@ export const Menubar = () => {
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
-          <NavigationLink
-            onClick={() => setShowSearchbar(!showSearchbar)}
-            to="#"
-          >
+          <NavigationLink to="/search">
             <MagnifyingGlass size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
