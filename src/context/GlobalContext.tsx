@@ -17,8 +17,6 @@ const INITIAL_STATE = {
   addToWatchlist: () => {},
   removeFromWatchlist: () => {},
   getTrending: () => {},
-  showSearchbar: false,
-  setShowSearchbar: () => {},
   getCategory: () => {},
   getDetails: () => {},
 };
@@ -27,7 +25,6 @@ export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
 
 export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(AppReducer, INITIAL_STATE.store);
-  const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
 
   function addToWatchlist(content: { media_type: string; id: number }) {
     dispatch({ type: "ADD_TO_WATCHLIST", payload: content });
@@ -122,8 +119,6 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         addToWatchlist,
         removeFromWatchlist,
         getTrending,
-        showSearchbar,
-        setShowSearchbar,
         getCategory,
         getDetails,
       }}
