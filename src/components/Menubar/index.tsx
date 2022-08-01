@@ -1,4 +1,10 @@
-import { FilmStrip, House, MagnifyingGlass, Television } from "phosphor-react";
+import {
+  FilmStrip,
+  House,
+  MagnifyingGlass,
+  Plus,
+  Television,
+} from "phosphor-react";
 import React, { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { Nav, NavigationLi, NavigationLink, NavigationUl } from "./styles";
@@ -11,17 +17,22 @@ export const Menubar = () => {
       <NavigationUl>
         <NavigationLi>
           <NavigationLink to="/">
-            <House size={34} />
+            <House size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
-          <NavigationLink to="/">
-            <FilmStrip size={34} />
+          <NavigationLink to="/movies">
+            <FilmStrip size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
-          <NavigationLink to="/">
-            <Television size={34} />
+          <NavigationLink to="/series">
+            <Television size={34} weight="bold" />
+          </NavigationLink>
+        </NavigationLi>
+        <NavigationLi>
+          <NavigationLink to="/watchlist">
+            <Plus size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
@@ -29,7 +40,7 @@ export const Menubar = () => {
             onClick={() => setShowSearchbar(!showSearchbar)}
             to="#"
           >
-            <MagnifyingGlass size={34} />
+            <MagnifyingGlass size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
       </NavigationUl>
