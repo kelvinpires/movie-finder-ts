@@ -32,7 +32,7 @@ export const Wrapper = styled.ul`
 
 export const Card = styled.li`
   min-height: 35rem;
-  min-width: 25rem;
+  width: 25rem;
 `;
 
 export const Redirect = styled(Link)`
@@ -43,8 +43,8 @@ export const Redirect = styled(Link)`
 `;
 
 export const PosterWrapper = styled.div`
-  width: 100%;
   height: 100%;
+  width: 25rem;
 
   transition: all 0.25s ease-in-out;
 
