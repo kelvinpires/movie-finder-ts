@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 70vh;
   position: relative;
 `;
 
@@ -39,7 +39,7 @@ export const DescriptionWrapper = styled.div`
 `;
 
 export const LogoTitleWrapper = styled.div`
-  width: 70%;
+  width: 60%;
   height: auto;
 `;
 

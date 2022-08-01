@@ -107,7 +107,7 @@ export const Banner = ({ content }: Props) => {
 
           // overview
           const newOverview =
-            overview.length > 160 ? overview.slice(0, 160) + "..." : overview;
+            overview.length > 200 ? overview.slice(0, 200) + "..." : overview;
 
           // certification
           const certification = content_ratings
@@ -141,7 +141,7 @@ export const Banner = ({ content }: Props) => {
                         loading="lazy"
                         alt={title || name}
                         title={title || name}
-                        src={`https://image.tmdb.org/t/p/w500${images.logos[0]?.file_path}`}
+                        src={`https://image.tmdb.org/t/p/w1280${images.logos[0]?.file_path}`}
                       />
                     </LogoTitleWrapper>
                   ) : (
