@@ -20,7 +20,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <Banner content={trending.slice(0, 7)} />
+      <Banner content={trending} />
       {popularMovies && (
         <Carousel content={popularMovies} subtitle="Filmes populares" />
       )}
