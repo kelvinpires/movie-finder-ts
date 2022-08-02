@@ -80,6 +80,8 @@ export type MoviesType = {
   };
 };
 
+export type MultiType = MoviesType & PersonType;
+
 type VideosType = {
   key: string;
   type: string;
@@ -123,6 +125,10 @@ export type MoviesPropsContext = {
     media_type: string,
     id: number,
     setState?: (state: MoviesType[]) => void
+  ) => void;
+  getSearch: (
+    search: string,
+    setContent: (content: MultiType[]) => void
   ) => void;
 };
 
