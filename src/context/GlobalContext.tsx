@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { API_URL } from "../hooks/useApi";
-import { MoviesPropsContext, MoviesType } from "../types/MoviesType";
+import { MoviesPropsContext, MoviesType, MultiType } from "../types/MoviesType";
 import AppReducer from "./AppReducer";
 
 const INITIAL_STATE = {
@@ -19,6 +19,7 @@ const INITIAL_STATE = {
   getTrending: () => {},
   getCategory: () => {},
   getDetails: () => {},
+  getSearch: () => {},
 };
 
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
@@ -112,6 +113,18 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     setState(data);
   }
 
+  async function getSearch(
+    search: string,
+    setContent: (content: MultiType[]) => void
+  ) {
+    const res = await API_URL.get(
+      `search/multi?api_key=${API_KEY}&language=pt-BR&query=${search}&page=1`
+    );
+    const data: MultiType[] = await res.data.results;
+
+    setContent(data);
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -121,6 +134,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         getTrending,
         getCategory,
         getDetails,
+        getSearch,
       }}
     >
       {children}
