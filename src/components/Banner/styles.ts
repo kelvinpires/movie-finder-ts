@@ -39,8 +39,8 @@ export const DescriptionWrapper = styled.div`
 `;
 
 export const LogoTitleWrapper = styled.div`
-  width: 60%;
-  height: auto;
+  max-width: 60%;
+  min-width: 20rem;
 `;
 
 export const TitleText = styled.h1`
