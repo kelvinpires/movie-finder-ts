@@ -1,9 +1,9 @@
 import {
-  FilmStrip,
+  FilmSlate,
   House,
   MagnifyingGlass,
   Plus,
-  Television,
+  TelevisionSimple,
 } from "phosphor-react";
 import { Nav, NavigationLi, NavigationLink, NavigationUl } from "./styles";
 
@@ -18,12 +18,12 @@ export const Menubar = () => {
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/movies">
-            <FilmStrip size={34} weight="bold" />
+            <FilmSlate size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/series">
-            <Television size={34} weight="bold" />
+            <TelevisionSimple size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
