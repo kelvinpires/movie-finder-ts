@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Banner } from "../../components/Banner";
 import { Carousel } from "../../components/Carousel";
+import { Trailer } from "../../components/Trailer";
 import { GlobalContext } from "../../context/GlobalContext";
 import { MoviesType } from "../../types/MoviesType";
 import {
@@ -21,6 +22,8 @@ import {
 
 export const MediaPage = () => {
   const [content, setContent] = useState<MoviesType[]>([]);
+  const [showTrailer, setShowTrailer] = useState<boolean>(false);
+
   const { getDetails } = useContext(GlobalContext);
 
   const { media_type, id } = useParams();
@@ -30,9 +33,11 @@ export const MediaPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
+  let videoKey: string = "";
+
   return (
     <>
-      <Banner content={content} />
+      <Banner setShowTrailer={setShowTrailer} content={content} />
       {content.length > 0 && (
         <>
           {content.map((item) => {
@@ -53,7 +58,11 @@ export const MediaPage = () => {
               "watch/providers": providers,
               credits,
               recommendations,
+              videos,
             } = item;
+
+            // trailer
+            videoKey = videos?.results?.[0]?.key ? videos.results[0].key : "";
 
             // date
             const date = release_date
@@ -197,6 +206,9 @@ export const MediaPage = () => {
             );
           })}
         </>
+      )}
+      {content.length === 1 && showTrailer && (
+        <Trailer setShowTrailer={setShowTrailer} videoId={videoKey} />
       )}
     </>
   );
