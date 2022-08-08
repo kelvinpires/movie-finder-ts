@@ -1,6 +1,6 @@
 import {
-  ArrowLeft,
-  ArrowRight,
+  CaretLeft,
+  CaretRight,
   Check,
   Play,
   Plus,
@@ -35,9 +35,10 @@ import {
 
 type Props = {
   content: MoviesType[];
+  setShowTrailer?: (state: boolean) => void;
 };
 
-export const Banner = ({ content }: Props) => {
+export const Banner = ({ content, setShowTrailer }: Props) => {
   const [position, setPosition] = useState<number>(0);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
@@ -80,7 +81,7 @@ export const Banner = ({ content }: Props) => {
     <Container>
       {content.length > 1 && (
         <ArrowPagination side="left" onClick={() => handlePagination("left")}>
-          <ArrowLeft weight="bold" size={40} />
+          <CaretLeft weight="bold" size={40} />
         </ArrowPagination>
       )}
 
@@ -100,6 +101,7 @@ export const Banner = ({ content }: Props) => {
             release_dates,
             release_date,
             first_air_date,
+            videos,
           } = movie;
 
           // is stored?
@@ -128,6 +130,8 @@ export const Banner = ({ content }: Props) => {
 
           time = runtime > 0 ? time : "";
 
+          const isButtonDisabled = videos.results.length < 1;
+
           return (
             <Content key={id}>
               <DescriptionWrapper>
@@ -141,7 +145,7 @@ export const Banner = ({ content }: Props) => {
                         loading="lazy"
                         alt={title || name}
                         title={title || name}
-                        src={`https://image.tmdb.org/t/p/w1280${images.logos[0]?.file_path}`}
+                        src={`https://image.tmdb.org/t/p/w500${images.logos[0]?.file_path}`}
                       />
                     </LogoTitleWrapper>
                   ) : (
@@ -168,7 +172,10 @@ export const Banner = ({ content }: Props) => {
                   {content.length > 1 ? (
                     <Redirect to={`/${media_type}/${id}`}>Detalhes</Redirect>
                   ) : (
-                    <Button>
+                    <Button
+                      disabled={isButtonDisabled}
+                      onClick={() => setShowTrailer?.(true)}
+                    >
                       <Play weight="bold" size={20} />
                       Ver trailer
                     </Button>
@@ -205,7 +212,7 @@ export const Banner = ({ content }: Props) => {
       </Wrapper>
       {content.length > 1 && (
         <ArrowPagination side="right" onClick={() => handlePagination("right")}>
-          <ArrowRight weight="bold" size={40} />
+          <CaretRight weight="bold" size={40} />
         </ArrowPagination>
       )}
 

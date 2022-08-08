@@ -35,11 +35,11 @@ export const DescriptionWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 2rem;
-  background: linear-gradient(to right, #000 80%, #1f1f1e00);
+  background: linear-gradient(to right, #090909 80%, #1f1f1e00);
 `;
 
 export const LogoTitleWrapper = styled.div`
-  max-width: 60%;
+  max-width: 320px;
   min-width: 20rem;
 `;
 
@@ -72,8 +72,8 @@ export const Span = styled.span`
 
 export const Certification = styled.div`
   border: 0.2rem solid var(--gray);
-  border-radius: 0.5rem;
-  padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+  border-radius: 0.2rem;
+  padding: 0.3rem 0.6rem 0.3rem 0.5rem;
   display: inline-block;
   margin-left: 0.5rem;
 `;
@@ -128,6 +128,11 @@ export const Button = styled.button`
     padding: 1.5rem;
     border-radius: 50%;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export const BackdropWapper = styled.div`
@@ -170,7 +175,7 @@ export const ArrowPagination = styled.div`
         `}
 
   &:hover {
-    background-color: #1f1f1e60;
+    background-color: #1f1f1e20;
   }
 `;
 
