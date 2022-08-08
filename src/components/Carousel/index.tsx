@@ -1,6 +1,6 @@
 import {
-  ArrowLeft,
-  ArrowRight,
+  CaretLeft,
+  CaretRight,
   ImageSquare,
   Star,
   StarHalf,
@@ -63,7 +63,7 @@ export const Carousel = ({
       <Subtitle>{subtitle}</Subtitle>
       <Content>
         <ArrowPagination side="left" onClick={() => handlePagination("left")}>
-          <ArrowLeft size={40} weight="bold" />
+          <CaretLeft size={40} weight="bold" />
         </ArrowPagination>
         <Wrapper ref={carouselRef}>
           {content?.map((item) => {
@@ -159,7 +159,7 @@ export const Carousel = ({
           })}
         </Wrapper>
         <ArrowPagination side="right" onClick={() => handlePagination("right")}>
-          <ArrowRight size={40} weight="bold" />
+          <CaretRight size={40} weight="bold" />
         </ArrowPagination>
       </Content>
     </Container>
