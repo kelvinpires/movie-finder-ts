@@ -54,6 +54,22 @@ export const Card = styled.li`
   width: 25rem;
   min-height: 35rem;
   margin-bottom: 1rem;
+
+  @keyframes animate {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+    }
+    50% {
+      opacity: 0.5;
+      visibility: visible;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  animation: animate 0.25s ease-in;
 `;
 
 export const Redirect = styled(Link)`
