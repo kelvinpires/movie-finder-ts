@@ -71,14 +71,16 @@ export const SearchPage = () => {
                 )}
 
                 <Span>{title || name}</Span>
-                <Span>
-                  {vote_average < 6 ? (
-                    <StarHalf color="#FFCB47" size={24} weight="fill" />
-                  ) : (
-                    <Star color="#FFCB47" size={24} weight="fill" />
-                  )}
-                  {vote_average?.toFixed(1)}
-                </Span>
+                {vote_average && (
+                  <Span>
+                    {vote_average < 6 ? (
+                      <StarHalf color="#FFCB47" size={24} weight="fill" />
+                    ) : (
+                      <Star color="#FFCB47" size={24} weight="fill" />
+                    )}
+                    {vote_average?.toFixed(1)}
+                  </Span>
+                )}
               </Redirect>
             </Card>
           );
