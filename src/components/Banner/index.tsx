@@ -36,9 +36,10 @@ import {
 type Props = {
   content: MoviesType[];
   setShowTrailer?: (state: boolean) => void;
+  setVideoKey?: (state: string) => void;
 };
 
-export const Banner = ({ content, setShowTrailer }: Props) => {
+export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
   const [position, setPosition] = useState<number>(0);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
@@ -174,7 +175,10 @@ export const Banner = ({ content, setShowTrailer }: Props) => {
                   ) : (
                     <Button
                       disabled={isButtonDisabled}
-                      onClick={() => setShowTrailer?.(true)}
+                      onClick={() => {
+                        setVideoKey?.(videos.results[0].key);
+                        setShowTrailer?.(true);
+                      }}
                     >
                       <Play weight="bold" size={20} />
                       Ver trailer
