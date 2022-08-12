@@ -278,18 +278,16 @@ export const MediaPage = () => {
                   <EpisodesContainer>
                     <Select onChange={(e) => getSeason(Number(e.target.value))}>
                       {seasons.map((season) => {
-                        return (
-                          <>
-                            {season.season_number > 0 && (
-                              <Option
-                                key={season.season_number}
-                                value={season.season_number}
-                              >
-                                Temporada {season.season_number}
-                              </Option>
-                            )}
-                          </>
-                        );
+                        if (season.season_number > 0) {
+                          return (
+                            <Option
+                              key={season.season_number}
+                              value={season.season_number}
+                            >
+                              Temporada {season.season_number}
+                            </Option>
+                          );
+                        }
                       })}
                     </Select>
                     <EpisodesWrapper>

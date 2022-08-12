@@ -255,6 +255,7 @@ export const EpisodeContent = styled.li`
 
 export const EpisodeImage = styled.img`
   width: 100%;
+  height: 25rem;
 
   @keyframes animate {
     0% {
