@@ -250,12 +250,12 @@ export const EpisodeContent = styled.li`
   flex-direction: column;
   gap: 1rem;
   width: 40rem;
-  min-height: 25rem;
+  min-height: 23rem;
 `;
 
 export const EpisodeImage = styled.img`
   width: 100%;
-  height: 25rem;
+  height: 23rem;
 
   @keyframes animate {
     0% {
