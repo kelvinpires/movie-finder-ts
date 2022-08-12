@@ -78,6 +78,10 @@ export type MoviesType = {
       vote_average: number;
     }>;
   };
+  seasons: Array<{
+    episode_count: number;
+    season_number: number;
+  }>;
 };
 
 export type MultiType = MoviesType & PersonType;
@@ -101,6 +105,19 @@ type ImagesType = {
     file_path: string;
     iso_639_1: string;
   }>;
+};
+
+export type EpisodesPropsType = {
+  episodes: [
+    {
+      air_date: string;
+      episode_number: number;
+      runtime: number;
+      name: string;
+      overview: string;
+      still_path: string;
+    }
+  ];
 };
 
 export type MoviesPropsContext = {
@@ -129,6 +146,12 @@ export type MoviesPropsContext = {
   getSearch: (
     search: string,
     setContent: (content: MultiType[]) => void
+  ) => void;
+
+  getEpisodes: (
+    tv_id: string,
+    season: number,
+    setEpisodes: (state: EpisodesPropsType) => void
   ) => void;
 };
 
