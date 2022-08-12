@@ -7,7 +7,12 @@ import {
   useState,
 } from "react";
 import { API_URL } from "../hooks/useApi";
-import { MoviesPropsContext, MoviesType, MultiType } from "../types/MoviesType";
+import {
+  EpisodesPropsType,
+  MoviesPropsContext,
+  MoviesType,
+  MultiType,
+} from "../types/MoviesType";
 import AppReducer from "./AppReducer";
 
 const INITIAL_STATE = {
@@ -20,6 +25,7 @@ const INITIAL_STATE = {
   getCategory: () => {},
   getDetails: () => {},
   getSearch: () => {},
+  getEpisodes: () => {},
 };
 
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
@@ -125,6 +131,19 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     setContent(data);
   }
 
+  async function getEpisodes(
+    tv_id: string,
+    season: number,
+    setEpisodes: (state: EpisodesPropsType) => void
+  ) {
+    const res = await API_URL.get(
+      `tv/${tv_id}/season/${season}?api_key=${API_KEY}&language=pt-BR`
+    );
+    const data = await res.data;
+
+    setEpisodes(data);
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -135,6 +154,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         getCategory,
         getDetails,
         getSearch,
+        getEpisodes,
       }}
     >
       {children}
