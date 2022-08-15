@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Menubar } from "./components/Menubar";
+import { CategoryPage } from "./pages/CategoryPage";
 import { HomePage } from "./pages/HomePage";
 import { MediaPage } from "./pages/MediaPage";
 import { SearchPage } from "./pages/SearchPage";
@@ -12,6 +13,7 @@ function App() {
       <Menubar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/:type" element={<CategoryPage />} />
         <Route path="/:media_type/:id" element={<MediaPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/watchlist" element={<WatchlistPage />} />
