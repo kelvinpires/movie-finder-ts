@@ -136,7 +136,7 @@ export type MoviesPropsContext = {
   getCategory: (
     media_type: string,
     category: string,
-    setState: (state: MoviesType[]) => void
+    setState: (state: SetStateAction<MoviesType[]>) => void
   ) => void;
   getDetails: (
     media_type: string,
@@ -152,6 +152,19 @@ export type MoviesPropsContext = {
     tv_id: string,
     season: number,
     setEpisodes: (state: EpisodesPropsType) => void
+  ) => void;
+
+  getGenres: (
+    type: string,
+    setState: (
+      state: SetStateAction<Array<{ id: number; name: string }>>
+    ) => void
+  ) => void;
+
+  getContentByGenre: (
+    type: string,
+    genres: number[],
+    setState: (state: SetStateAction<MoviesType[]>) => void
   ) => void;
 };
 
