@@ -58,7 +58,7 @@ export const SearchPage = () => {
                   <PosterWrapper>
                     <PosterImg
                       loading="lazy"
-                      src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${
+                      src={`https://image.tmdb.org/t/p/w342${
                         poster_path || profile_path
                       }`}
                       alt={title || name}
