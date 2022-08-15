@@ -26,6 +26,8 @@ const INITIAL_STATE = {
   getDetails: () => {},
   getSearch: () => {},
   getEpisodes: () => {},
+  getGenres: () => {},
+  getContentByGenre: () => {},
 };
 
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
@@ -105,7 +107,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   async function getCategory(
     media_type: string,
     category: string,
-    setState: (state: MoviesType[]) => void
+    setState: (state: SetStateAction<MoviesType[]>) => void
   ) {
     const res = await API_URL.get(
       `${media_type}/${category}?api_key=${API_KEY}&language=pt-BR&page=1`
@@ -113,10 +115,10 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     let data: MoviesType[] = await res.data.results;
 
     data.map((item) => {
-      item.media_type = media_type;
+      getDetails(media_type, item.id).then((data) =>
+        setState((prev) => [...prev, data!])
+      );
     });
-
-    setState(data);
   }
 
   async function getSearch(
@@ -144,6 +146,39 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     setEpisodes(data);
   }
 
+  async function getGenres(
+    type: string,
+    setState: (
+      state: SetStateAction<Array<{ id: number; name: string }>>
+    ) => void
+  ) {
+    const res = await API_URL.get(
+      `genre/${type}/list?api_key=${API_KEY}&language=pt-BR`
+    );
+
+    const data: Array<{ id: number; name: string }> = await res.data.genres;
+
+    setState(data);
+  }
+
+  async function getContentByGenre(
+    type: string,
+    genres: number[],
+    setState: (state: SetStateAction<MoviesType[]>) => void
+  ) {
+    console.log(genres);
+    const res = await API_URL.get(
+      `discover/${type}?api_key=${API_KEY}&language=pt-BR&region=br&sort_by=popularity.desc&page=1&with_genres=${genres.toString()}`
+    );
+    const data: MoviesType[] = await res.data.results;
+
+    data.map((item) => {
+      item.media_type = type;
+    });
+
+    setState(data);
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -155,6 +190,8 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         getDetails,
         getSearch,
         getEpisodes,
+        getGenres,
+        getContentByGenre,
       }}
     >
       {children}
