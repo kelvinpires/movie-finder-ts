@@ -17,12 +17,12 @@ export const Menubar = () => {
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
-          <NavigationLink to="/movies">
+          <NavigationLink to="/movie">
             <FilmSlate size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
-          <NavigationLink to="/series">
+          <NavigationLink to="/tv">
             <TelevisionSimple size={34} weight="bold" />
           </NavigationLink>
         </NavigationLi>
