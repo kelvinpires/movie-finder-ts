@@ -69,8 +69,9 @@ export const InfoLabel = styled.span`
 
 export const InfoValue = styled.span`
   color: var(--white);
-  flex: 4;
+  flex: 2;
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 `;
 

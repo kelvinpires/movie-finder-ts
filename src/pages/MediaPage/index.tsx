@@ -56,7 +56,9 @@ export const MediaPage = () => {
 
   useEffect(() => {
     getDetails(media_type!, Number(id)!, setContent);
-    getEpisodes(id!, 1, setEpisodes);
+    if (media_type === "tv") {
+      getEpisodes(id!, 1, setEpisodes);
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
