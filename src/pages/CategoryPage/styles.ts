@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   padding: 5rem;
+  text-align: center;
 `;
 
 export const GenresWrapper = styled.section`
@@ -17,7 +18,7 @@ type GenreProps = {
 
 export const Genre = styled.span`
   border: 0.2rem solid var(--gray);
-  color: var(--white);
+  color: var(--gray);
   border-radius: 0.5rem;
   font-size: 1.6rem;
   font-weight: 500;
@@ -73,7 +74,7 @@ export const Redirect = styled(Link)`
 
 export const PosterWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: 35rem;
   transition: all 0.25s ease-in-out;
 
   &:hover {
@@ -94,4 +95,15 @@ export const Span = styled.span`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+`;
+
+export const Button = styled.button`
+  border: 0;
+  padding: 1.5rem 2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 0.3rem;
+  cursor: pointer;
 `;

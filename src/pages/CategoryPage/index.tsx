@@ -5,6 +5,7 @@ import { Banner } from "../../components/Banner";
 import { GlobalContext } from "../../context/GlobalContext";
 import { MoviesType } from "../../types/MoviesType";
 import {
+  Button,
   Card,
   Container,
   ContentWrapper,
@@ -21,6 +22,7 @@ export const CategoryPage = () => {
   const [contentByGenre, setContentByGenre] = useState<MoviesType[]>([]);
   const [genres, setGenres] = useState<Array<{ id: number; name: string }>>([]);
   const [activeGenres, setActiveGenres] = useState<number[]>([]);
+  const [page, setPage] = useState<number>(1);
 
   const { getCategory, getGenres, getContentByGenre } =
     useContext(GlobalContext);
@@ -30,17 +32,25 @@ export const CategoryPage = () => {
   useEffect(() => {
     setContent([]);
     setActiveGenres([]);
+    setPage(1);
+    setContentByGenre([]);
 
     getCategory(type!, "popular", setContent);
-    getContentByGenre(type!, [], setContentByGenre);
+    getContentByGenre(type!, activeGenres, page, setContentByGenre);
 
     getGenres(type!, setGenres);
   }, [type]);
 
   useEffect(() => {
-    setContentByGenre([]);
-    getContentByGenre(type!, activeGenres, setContentByGenre);
+    setPage(1);
+    getContentByGenre(type!, activeGenres, 1, setContentByGenre);
   }, [activeGenres]);
+
+  useEffect(() => {
+    if (page > 1) {
+      getContentByGenre(type!, activeGenres, page, setContentByGenre);
+    }
+  }, [page]);
 
   function handleGenres(genreId: number) {
     if (!activeGenres.includes(genreId)) {
@@ -101,6 +111,9 @@ export const CategoryPage = () => {
             );
           })}
         </ContentWrapper>
+        <Button onClick={() => setPage((prev) => prev + 1)}>
+          Carregar mais
+        </Button>
       </Container>
     </>
   );
