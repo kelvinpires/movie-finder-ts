@@ -52,7 +52,6 @@ export const Wrapper = styled.ul`
 
 export const Card = styled.li`
   width: 25rem;
-  min-height: 35rem;
   margin-bottom: 1rem;
 
   @keyframes animate {
