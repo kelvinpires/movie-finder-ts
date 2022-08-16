@@ -164,6 +164,7 @@ export type MoviesPropsContext = {
   getContentByGenre: (
     type: string,
     genres: number[],
+    page: number,
     setState: (state: SetStateAction<MoviesType[]>) => void
   ) => void;
 };
