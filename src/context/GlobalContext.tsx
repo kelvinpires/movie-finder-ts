@@ -164,11 +164,11 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   async function getContentByGenre(
     type: string,
     genres: number[],
+    page: number = 1,
     setState: (state: SetStateAction<MoviesType[]>) => void
   ) {
-    console.log(genres);
     const res = await API_URL.get(
-      `discover/${type}?api_key=${API_KEY}&language=pt-BR&region=br&sort_by=popularity.desc&page=1&with_genres=${genres.toString()}`
+      `discover/${type}?api_key=${API_KEY}&language=pt-BR&region=br&sort_by=popularity.desc&page=${page}&with_genres=${genres.toString()}`
     );
     const data: MoviesType[] = await res.data.results;
 
@@ -176,7 +176,11 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
       item.media_type = type;
     });
 
-    setState(data);
+    if (page > 1) {
+      setState((prev) => [...prev, ...data]);
+    } else {
+      setState(data);
+    }
   }
 
   return (
