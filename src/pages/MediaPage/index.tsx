@@ -6,12 +6,16 @@ import { Carousel } from "../../components/Carousel";
 import { Trailer } from "../../components/Trailer";
 import { GlobalContext } from "../../context/GlobalContext";
 import { EpisodesPropsType, MoviesType } from "../../types/MoviesType";
+
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 import {
   Container,
   DescriptionWrapper,
   Details,
   EpisodeContent,
   EpisodeImage,
+  EpisodeImageContent,
   EpisodeName,
   EpisodeOverview,
   EpisodesContainer,
@@ -269,11 +273,13 @@ export const MediaPage = () => {
                       subtitle="Elenco"
                       persons={credits.cast}
                     />
-                    <Carousel
-                      key="recommendations"
-                      subtitle="Conteúdos recomendados"
-                      recommendations={recommendations.results}
-                    />
+                    {recommendations.results.length > 0 && (
+                      <Carousel
+                        key="recommendations"
+                        subtitle="Conteúdos recomendados"
+                        recommendations={recommendations.results}
+                      />
+                    )}
                   </>
                 )}
                 {pagination === "episodes" && (
@@ -295,12 +301,15 @@ export const MediaPage = () => {
                     <EpisodesWrapper>
                       {episodes?.episodes.map((episode) => {
                         return (
-                          <EpisodeContent>
-                            <EpisodeImage
-                              key={episode.episode_number}
-                              src={`https://www.themoviedb.org/t/p/w500${episode.still_path}`}
-                              alt=""
-                            />
+                          <EpisodeContent key={episode.episode_number}>
+                            <EpisodeImageContent>
+                              {episode.still_path && (
+                                <EpisodeImage
+                                  src={`https://www.themoviedb.org/t/p/w500${episode.still_path}`}
+                                  alt=""
+                                />
+                              )}
+                            </EpisodeImageContent>
                             <EpisodeName>
                               {`${episode.episode_number}. ${episode.name} ${
                                 episode.runtime != null &&
@@ -354,9 +363,13 @@ export const MediaPage = () => {
                         <PhotosContent>
                           {images.backdrops.map((backdrop) => (
                             <PhotoLi key={backdrop.file_path}>
-                              <Image
+                              <LazyLoadImage
+                                effect="blur"
+                                loading="lazy"
                                 src={`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${backdrop.file_path}`}
                                 alt={name || title}
+                                width="100%"
+                                height="100%"
                               />
                             </PhotoLi>
                           ))}
@@ -374,9 +387,13 @@ export const MediaPage = () => {
                               key={poster.file_path}
                               style={{ maxWidth: "25rem" }}
                             >
-                              <Image
+                              <LazyLoadImage
+                                effect="blur"
+                                loading="lazy"
                                 src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${poster.file_path}`}
                                 alt={name || title}
+                                width="100%"
+                                height="100%"
                               />
                             </PhotoLi>
                           ))}

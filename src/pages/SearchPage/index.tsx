@@ -2,6 +2,9 @@ import { ImageSquare, MagnifyingGlass, Star, StarHalf } from "phosphor-react";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { MultiType } from "../../types/MoviesType";
+
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 import {
   Card,
   Container,
@@ -56,12 +59,14 @@ export const SearchPage = () => {
               <Redirect to={`/${media_type}/${id}`}>
                 {poster_path || profile_path ? (
                   <PosterWrapper>
-                    <PosterImg
-                      loading="lazy"
+                    <LazyLoadImage
+                      effect="black-and-white"
                       src={`https://image.tmdb.org/t/p/w342${
                         poster_path || profile_path
                       }`}
                       alt={title || name}
+                      width="100%"
+                      height="100%"
                     />
                   </PosterWrapper>
                 ) : (
