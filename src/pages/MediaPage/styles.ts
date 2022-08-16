@@ -254,9 +254,15 @@ export const EpisodeContent = styled.li`
   min-height: 23rem;
 `;
 
-export const EpisodeImage = styled.img`
+export const EpisodeImageContent = styled.div`
   width: 100%;
   height: 23rem;
+  background-color: var(--black);
+`;
+
+export const EpisodeImage = styled.img`
+  width: 100%;
+  height: 100%;
 
   @keyframes animate {
     0% {
