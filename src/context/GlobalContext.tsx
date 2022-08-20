@@ -8,10 +8,12 @@ import {
 } from "react";
 import { API_URL } from "../hooks/useApi";
 import {
-  EpisodesPropsType,
   MoviesPropsContext,
-  MoviesType,
-  MultiType,
+  ContentResponse,
+  SearchType,
+  Season,
+  Person,
+  SearchResult,
 } from "../types/MoviesType";
 import AppReducer from "./AppReducer";
 
@@ -28,6 +30,7 @@ const INITIAL_STATE = {
   getEpisodes: () => {},
   getGenres: () => {},
   getContentByGenre: () => {},
+  getPersonData: () => {},
 };
 
 export const GlobalContext = createContext<MoviesPropsContext>(INITIAL_STATE);
@@ -49,14 +52,14 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   async function getTrending(
-    setState: (state: SetStateAction<MoviesType[]>) => void
+    setState: (state: SetStateAction<ContentResponse[]>) => void
   ) {
     const res = await API_URL.get(
       `trending/all/day?api_key=${API_KEY}&language=pt-BR`
     );
     const data = await res.data.results.slice(0, 7);
 
-    await data.map(({ media_type, id }: MoviesType) => {
+    await data.map(({ media_type, id }: ContentResponse) => {
       getDetails(media_type, id).then((data) =>
         setState((prev) => [...prev, data!])
       );
@@ -66,12 +69,12 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   async function getDetails(
     media_type: string,
     id: number,
-    setState?: (state: MoviesType[]) => void
+    setState?: (state: ContentResponse[]) => void
   ) {
     const res = await API_URL.get(
       `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images,release_dates,content_ratings,watch/providers,combined_credits,credits,recommendations&include_image_language=pt,en,null`
     );
-    const data: MoviesType = await res.data;
+    const data: ContentResponse = await res.data;
 
     const movieCertificationFilter = data.release_dates?.results.filter(
       (result) => result.iso_3166_1 === "BR"
@@ -107,12 +110,12 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   async function getCategory(
     media_type: string,
     category: string,
-    setState: (state: SetStateAction<MoviesType[]>) => void
+    setState: (state: SetStateAction<ContentResponse[]>) => void
   ) {
     const res = await API_URL.get(
       `${media_type}/${category}?api_key=${API_KEY}&language=pt-BR&page=1`
     );
-    let data: MoviesType[] = await res.data.results;
+    let data: ContentResponse[] = await res.data.results;
 
     data.map((item) => {
       getDetails(media_type, item.id).then((data) =>
@@ -123,12 +126,12 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
 
   async function getSearch(
     search: string,
-    setContent: (content: MultiType[]) => void
+    setContent: (content: SearchResult[]) => void
   ) {
     const res = await API_URL.get(
       `search/multi?api_key=${API_KEY}&language=pt-BR&query=${search}&page=1`
     );
-    const data: MultiType[] = await res.data.results;
+    const data: SearchResult[] = await res.data.results;
 
     setContent(data);
   }
@@ -136,7 +139,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   async function getEpisodes(
     tv_id: string,
     season: number,
-    setEpisodes: (state: EpisodesPropsType) => void
+    setEpisodes: (state: Season) => void
   ) {
     const res = await API_URL.get(
       `tv/${tv_id}/season/${season}?api_key=${API_KEY}&language=pt-BR`
@@ -165,12 +168,12 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     type: string,
     genres: number[],
     page: number = 1,
-    setState: (state: SetStateAction<MoviesType[]>) => void
+    setState: (state: SetStateAction<ContentResponse[]>) => void
   ) {
     const res = await API_URL.get(
       `discover/${type}?api_key=${API_KEY}&language=pt-BR&region=br&sort_by=popularity.desc&page=${page}&with_genres=${genres.toString()}`
     );
-    const data: MoviesType[] = await res.data.results;
+    const data: ContentResponse[] = await res.data.results;
 
     data.map((item) => {
       item.media_type = type;
@@ -181,6 +184,15 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     } else {
       setState(data);
     }
+  }
+
+  async function getPersonData(id: string, setState: (state: Person) => void) {
+    const res = await API_URL.get(
+      `person/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=images,movie_credits,tv_credits`
+    );
+    const data = await res.data;
+
+    setState(data);
   }
 
   return (
@@ -196,6 +208,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         getEpisodes,
         getGenres,
         getContentByGenre,
+        getPersonData,
       }}
     >
       {children}

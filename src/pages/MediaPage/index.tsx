@@ -5,7 +5,7 @@ import { Banner } from "../../components/Banner";
 import { Carousel } from "../../components/Carousel";
 import { Trailer } from "../../components/Trailer";
 import { GlobalContext } from "../../context/GlobalContext";
-import { EpisodesPropsType, MoviesType } from "../../types/MoviesType";
+import { Season, ContentResponse } from "../../types/MoviesType";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
@@ -48,11 +48,11 @@ import {
 } from "./styles";
 
 export const MediaPage = () => {
-  const [content, setContent] = useState<MoviesType[]>([]);
+  const [content, setContent] = useState<ContentResponse[]>([]);
   const [showTrailer, setShowTrailer] = useState<boolean>(false);
   const [pagination, setPagination] = useState<string>("details");
   const [videoKey, setVideoKey] = useState<string>("");
-  const [episodes, setEpisodes] = useState<EpisodesPropsType>();
+  const [episodes, setEpisodes] = useState<Season>();
 
   const { getDetails, getEpisodes } = useContext(GlobalContext);
 
@@ -271,13 +271,13 @@ export const MediaPage = () => {
                     <Carousel
                       key={title}
                       subtitle="Elenco"
-                      persons={credits.cast}
+                      cast={credits.cast}
                     />
                     {recommendations.results.length > 0 && (
                       <Carousel
                         key="recommendations"
                         subtitle="Conteúdos recomendados"
-                        recommendations={recommendations.results}
+                        content={recommendations.results}
                       />
                     )}
                   </>

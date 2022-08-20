@@ -10,7 +10,7 @@ import {
 import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
-import { MoviesType } from "../../types/MoviesType";
+import { ContentResponse } from "../../types/MoviesType";
 import {
   ActionWrapper,
   ArrowPagination,
@@ -34,7 +34,7 @@ import {
 } from "./styles";
 
 type Props = {
-  content: MoviesType[];
+  content: ContentResponse[];
   setShowTrailer?: (state: boolean) => void;
   setVideoKey?: (state: string) => void;
 };
