@@ -8,7 +8,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { Season, ContentResponse } from "../../types/MoviesType";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
-
+import "react-lazy-load-image-component/src/effects/blur.css";
 import {
   Container,
   DescriptionWrapper,
@@ -365,7 +365,6 @@ export const MediaPage = () => {
                             <PhotoLi key={backdrop.file_path}>
                               <LazyLoadImage
                                 effect="blur"
-                                loading="lazy"
                                 src={`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${backdrop.file_path}`}
                                 alt={name || title}
                                 width="100%"
@@ -389,7 +388,6 @@ export const MediaPage = () => {
                             >
                               <LazyLoadImage
                                 effect="blur"
-                                loading="lazy"
                                 src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${poster.file_path}`}
                                 alt={name || title}
                                 width="100%"

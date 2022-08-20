@@ -1,5 +1,6 @@
 import { ImageSquare, Star, StarHalf } from "phosphor-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import {
   ContentResponse,
   Cast,
@@ -36,7 +37,7 @@ export const Card = ({ item, cast, search }: CardT) => {
         search?.poster_path ? (
           <PosterWrapper>
             <LazyLoadImage
-              effect="opacity"
+              effect="blur"
               src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${
                 item?.poster_path ||
                 cast?.profile_path ||
