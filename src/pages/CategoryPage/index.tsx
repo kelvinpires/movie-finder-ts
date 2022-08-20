@@ -2,24 +2,20 @@ import { Star, StarHalf } from "phosphor-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Banner } from "../../components/Banner";
+import { Card } from "../../components/Card";
 import { GlobalContext } from "../../context/GlobalContext";
-import { MoviesType } from "../../types/MoviesType";
+import { ContentResponse } from "../../types/MoviesType";
 import {
   Button,
-  Card,
   Container,
   ContentWrapper,
   Genre,
   GenresWrapper,
-  PosterImg,
-  PosterWrapper,
-  Redirect,
-  Span,
 } from "./styles";
 
 export const CategoryPage = () => {
-  const [content, setContent] = useState<MoviesType[]>([]);
-  const [contentByGenre, setContentByGenre] = useState<MoviesType[]>([]);
+  const [content, setContent] = useState<ContentResponse[]>([]);
+  const [contentByGenre, setContentByGenre] = useState<ContentResponse[]>([]);
   const [genres, setGenres] = useState<Array<{ id: number; name: string }>>([]);
   const [activeGenres, setActiveGenres] = useState<number[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -82,33 +78,7 @@ export const CategoryPage = () => {
         </GenresWrapper>
         <ContentWrapper>
           {contentByGenre.map((content) => {
-            const { id, media_type, poster_path, title, name, vote_average } =
-              content;
-
-            return (
-              <Card key={id}>
-                <Redirect to={`/${media_type}/${id}`}>
-                  <PosterWrapper>
-                    <PosterImg
-                      loading="lazy"
-                      src={`https://image.tmdb.org/t/p/w342${poster_path}`}
-                      alt={title || name}
-                    />
-                  </PosterWrapper>
-                  <Span>{title || name}</Span>
-                  {vote_average && (
-                    <Span>
-                      {vote_average < 6 ? (
-                        <StarHalf color="#FFCB47" size={24} weight="fill" />
-                      ) : (
-                        <Star color="#FFCB47" size={24} weight="fill" />
-                      )}
-                      {vote_average?.toFixed(1)}
-                    </Span>
-                  )}
-                </Redirect>
-              </Card>
-            );
+            return <Card key={content.id} item={content} />;
           })}
         </ContentWrapper>
         <Button onClick={() => setPage((prev) => prev + 1)}>

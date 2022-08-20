@@ -1,27 +1,14 @@
-import { ImageSquare, MagnifyingGlass, Star, StarHalf } from "phosphor-react";
+import { MagnifyingGlass } from "phosphor-react";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-import { MultiType } from "../../types/MoviesType";
+import { SearchResult } from "../../types/MoviesType";
 
-import { LazyLoadImage } from "react-lazy-load-image-component";
-
-import {
-  Card,
-  Container,
-  Input,
-  NoImage,
-  PosterImg,
-  PosterWrapper,
-  Redirect,
-  Searchbar,
-  SearchIcon,
-  Span,
-  Wrapper,
-} from "./styles";
+import { Container, Input, Searchbar, SearchIcon, Wrapper } from "./styles";
+import { Card } from "../../components/Card";
 
 export const SearchPage = () => {
   const [search, setSearch] = useState<string>("");
-  const [content, setContent] = useState<MultiType[]>([]);
+  const [content, setContent] = useState<SearchResult[]>([]);
   const { getSearch } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -44,51 +31,9 @@ export const SearchPage = () => {
 
       <Wrapper>
         {content?.map((item) => {
-          const {
-            title,
-            name,
-            poster_path,
-            profile_path,
-            id,
-            media_type,
-            vote_average,
-          } = item;
+          const { id } = item;
 
-          return (
-            <Card key={id}>
-              <Redirect to={`/${media_type}/${id}`}>
-                {poster_path || profile_path ? (
-                  <PosterWrapper>
-                    <LazyLoadImage
-                      effect="black-and-white"
-                      src={`https://image.tmdb.org/t/p/w342${
-                        poster_path || profile_path
-                      }`}
-                      alt={title || name}
-                      width="100%"
-                      height="100%"
-                    />
-                  </PosterWrapper>
-                ) : (
-                  <NoImage>
-                    <ImageSquare size={40} weight="duotone" />
-                  </NoImage>
-                )}
-
-                <Span>{title || name}</Span>
-                {vote_average && (
-                  <Span>
-                    {vote_average < 6 ? (
-                      <StarHalf color="#FFCB47" size={24} weight="fill" />
-                    ) : (
-                      <Star color="#FFCB47" size={24} weight="fill" />
-                    )}
-                    {vote_average?.toFixed(1)}
-                  </Span>
-                )}
-              </Redirect>
-            </Card>
-          );
+          return <Card key={id} search={item} />;
         })}
       </Wrapper>
     </Container>
