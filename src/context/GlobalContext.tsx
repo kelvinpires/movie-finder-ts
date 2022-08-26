@@ -51,26 +51,24 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
 
   const API_KEY = import.meta.env.VITE_API_KEY;
 
-  async function getTrending(
-    setState: (state: SetStateAction<ContentResponse[]>) => void
-  ) {
+  async function getTrending() {
     const res = await API_URL.get(
       `trending/all/day?api_key=${API_KEY}&language=pt-BR`
     );
-    const data = await res.data.results.slice(0, 7);
+    let data = await res.data.results.slice(0, 7);
 
-    await data.map(({ media_type, id }: ContentResponse) => {
-      getDetails(media_type, id).then((data) =>
-        setState((prev) => [...prev, data!])
-      );
-    });
+    let content: ContentResponse[] = [];
+
+    for (let i = 0; i < data.length; i++) {
+      const details = await getDetails(data[i].media_type, data[i].id);
+
+      content.push(details!);
+    }
+
+    return content;
   }
 
-  async function getDetails(
-    media_type: string,
-    id: number,
-    setState?: (state: ContentResponse[]) => void
-  ) {
+  async function getDetails(media_type: string, id: number) {
     const res = await API_URL.get(
       `${media_type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos,images,release_dates,content_ratings,watch/providers,combined_credits,credits,recommendations&include_image_language=pt,en,null`
     );
@@ -100,40 +98,33 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
       data.images.logos = logosPT;
     }
 
-    if (setState) {
-      return setState([data]);
-    }
-
     return data;
   }
 
-  async function getCategory(
-    media_type: string,
-    category: string,
-    setState: (state: SetStateAction<ContentResponse[]>) => void
-  ) {
+  async function getCategory(media_type: string, category: string) {
     const res = await API_URL.get(
       `${media_type}/${category}?api_key=${API_KEY}&language=pt-BR&page=1`
     );
     let data: ContentResponse[] = await res.data.results;
 
-    data.map((item) => {
-      getDetails(media_type, item.id).then((data) =>
-        setState((prev) => [...prev, data!])
-      );
-    });
+    let content: ContentResponse[] = [];
+
+    for (let i = 0; i < data.length; i++) {
+      const details = await getDetails(media_type, data[i].id);
+
+      content.push(details!);
+    }
+
+    return content;
   }
 
-  async function getSearch(
-    search: string,
-    setContent: (content: SearchResult[]) => void
-  ) {
+  async function getSearch(search: string) {
     const res = await API_URL.get(
       `search/multi?api_key=${API_KEY}&language=pt-BR&query=${search}&page=1`
     );
     const data: SearchResult[] = await res.data.results;
 
-    setContent(data);
+    return data;
   }
 
   async function getEpisodes(
@@ -149,26 +140,20 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     setEpisodes(data);
   }
 
-  async function getGenres(
-    type: string,
-    setState: (
-      state: SetStateAction<Array<{ id: number; name: string }>>
-    ) => void
-  ) {
+  async function getGenres(type: string) {
     const res = await API_URL.get(
       `genre/${type}/list?api_key=${API_KEY}&language=pt-BR`
     );
 
     const data: Array<{ id: number; name: string }> = await res.data.genres;
 
-    setState(data);
+    return data;
   }
 
   async function getContentByGenre(
     type: string,
     genres: number[],
-    page: number = 1,
-    setState: (state: SetStateAction<ContentResponse[]>) => void
+    page: number = 1
   ) {
     const res = await API_URL.get(
       `discover/${type}?api_key=${API_KEY}&language=pt-BR&region=br&sort_by=popularity.desc&page=${page}&with_genres=${genres.toString()}`
@@ -179,20 +164,16 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
       item.media_type = type;
     });
 
-    if (page > 1) {
-      setState((prev) => [...prev, ...data]);
-    } else {
-      setState(data);
-    }
+    return data;
   }
 
-  async function getPersonData(id: string, setState: (state: Person) => void) {
+  async function getPersonData(id: string) {
     const res = await API_URL.get(
       `person/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=images,movie_credits,tv_credits`
     );
-    const data = await res.data;
+    const data: Person = await res.data;
 
-    setState(data);
+    return data;
   }
 
   return (
