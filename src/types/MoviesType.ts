@@ -9,24 +9,20 @@ export type MoviesPropsContext = {
   };
   addToWatchlist: (content: { media_type: string; id: number }) => void;
   removeFromWatchlist: (content: { media_type: string; id: number }) => void;
-  getTrending: (
-    setState: (state: SetStateAction<ContentResponse[]>) => void
-  ) => void;
+  getTrending: () => // setState: (state: SetStateAction<ContentResponse[]>) => void
+  void;
 
   getCategory: (
     media_type: string,
-    category: string,
-    setState: (state: SetStateAction<ContentResponse[]>) => void
+    category: string
+    // setState: (state: SetStateAction<ContentResponse[]>) => void
   ) => void;
   getDetails: (
     media_type: string,
-    id: number,
-    setState?: (state: ContentResponse[]) => void
+    id: number
+    // setState?: (state: ContentResponse[]) => void
   ) => void;
-  getSearch: (
-    search: string,
-    setContent: (content: SearchResult[]) => void
-  ) => void;
+  getSearch: (search: string) => void;
 
   getEpisodes: (
     tv_id: string,
@@ -34,20 +30,15 @@ export type MoviesPropsContext = {
     setEpisodes: (state: Season) => void
   ) => void;
 
-  getGenres: (
-    type: string,
-    setState: (
-      state: SetStateAction<Array<{ id: number; name: string }>>
-    ) => void
-  ) => void;
+  getGenres: (type: string) => void;
 
   getContentByGenre: (
     type: string,
     genres: number[],
-    page: number,
-    setState: (state: SetStateAction<ContentResponse[]>) => void
+    page: number
+    // setState: (state: SetStateAction<ContentResponse[]>) => void
   ) => void;
-  getPersonData: (id: string, setState: (state: Person) => void) => void;
+  getPersonData: (id: string) => void;
 };
 
 export interface Genre {
