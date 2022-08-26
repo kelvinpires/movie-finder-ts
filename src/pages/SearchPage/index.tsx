@@ -1,19 +1,29 @@
 import { MagnifyingGlass } from "phosphor-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { SearchResult } from "../../types/MoviesType";
 
 import { Container, Input, Searchbar, SearchIcon, Wrapper } from "./styles";
 import { Card } from "../../components/Card";
 
+import { useQuery } from "@tanstack/react-query";
+
 export const SearchPage = () => {
   const [search, setSearch] = useState<string>("");
-  const [content, setContent] = useState<SearchResult[]>([]);
   const { getSearch } = useContext(GlobalContext);
 
-  useEffect(() => {
-    search.length > 0 && getSearch(search, setContent);
-  }, [search]);
+  const { data: content } = useQuery<SearchResult[]>(
+    ["search", search],
+    async () => {
+      if (search.length === 0) {
+        return [];
+      }
+
+      const data = await getSearch(search)!;
+
+      return data;
+    }
+  );
 
   return (
     <Container>

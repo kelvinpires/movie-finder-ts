@@ -5,6 +5,9 @@ import { Banner } from "../../components/Banner";
 import { Card } from "../../components/Card";
 import { GlobalContext } from "../../context/GlobalContext";
 import { ContentResponse } from "../../types/MoviesType";
+
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+
 import {
   Button,
   Container,
@@ -14,8 +17,6 @@ import {
 } from "./styles";
 
 export const CategoryPage = () => {
-  const [content, setContent] = useState<ContentResponse[]>([]);
-  const [contentByGenre, setContentByGenre] = useState<ContentResponse[]>([]);
   const [genres, setGenres] = useState<Array<{ id: number; name: string }>>([]);
   const [activeGenres, setActiveGenres] = useState<number[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -25,28 +26,50 @@ export const CategoryPage = () => {
 
   const { type } = useParams();
 
-  useEffect(() => {
-    setContent([]);
-    setActiveGenres([]);
-    setPage(1);
-    setContentByGenre([]);
+  const { data: content, isLoading } = useQuery<ContentResponse[]>(
+    ["media", type!],
+    async () => {
+      const contentCategory: ContentResponse[] = await getCategory(
+        type!,
+        "popular"
+      )!;
+      const allGenres = await getGenres(type!)!;
 
-    getCategory(type!, "popular", setContent);
-    getContentByGenre(type!, activeGenres, page, setContentByGenre);
+      setGenres(allGenres);
+      setActiveGenres([]);
+      await setPage(1);
+      scrollTo({ top: 0 });
 
-    getGenres(type!, setGenres);
-  }, [type]);
+      refetch();
 
-  useEffect(() => {
-    setPage(1);
-    getContentByGenre(type!, activeGenres, 1, setContentByGenre);
-  }, [activeGenres]);
-
-  useEffect(() => {
-    if (page > 1) {
-      getContentByGenre(type!, activeGenres, page, setContentByGenre);
+      return contentCategory;
+    },
+    {
+      refetchOnWindowFocus: false,
     }
-  }, [page]);
+  );
+
+  const {
+    data,
+    fetchNextPage,
+    isLoading: contentLoading,
+    refetch,
+  } = useInfiniteQuery<ContentResponse[]>(
+    ["page", activeGenres],
+    async ({ pageParam = 1 }) => {
+      const content: ContentResponse[] = await getContentByGenre(
+        type!,
+        activeGenres,
+        pageParam
+      )!;
+
+      return content;
+    },
+    {
+      refetchOnWindowFocus: false,
+      getNextPageParam: () => page + 1,
+    }
+  );
 
   function handleGenres(genreId: number) {
     if (!activeGenres.includes(genreId)) {
@@ -59,7 +82,8 @@ export const CategoryPage = () => {
 
   return (
     <>
-      <Banner content={content.slice(0, 7)} />
+      {!isLoading && <Banner content={content!.slice(0, 7)} />}
+
       <Container>
         <GenresWrapper>
           {genres.map((genre) => {
@@ -77,11 +101,20 @@ export const CategoryPage = () => {
           })}
         </GenresWrapper>
         <ContentWrapper>
-          {contentByGenre.map((content) => {
-            return <Card key={content.id} item={content} />;
-          })}
+          {!contentLoading &&
+            data?.pages?.map((item, i) => (
+              <React.Fragment key={i}>
+                {item.map((content) => {
+                  return <Card key={content.id} item={content} />;
+                })}
+              </React.Fragment>
+            ))}
         </ContentWrapper>
-        <Button onClick={() => setPage((prev) => prev + 1)}>
+        <Button
+          onClick={() => {
+            setPage(page + 1), fetchNextPage();
+          }}
+        >
           Carregar mais
         </Button>
       </Container>
