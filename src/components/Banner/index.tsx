@@ -80,7 +80,7 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
 
   return (
     <Container>
-      {content.length > 1 && (
+      {content.length > 1 && position > 0 && (
         <ArrowPagination side="left" onClick={() => handlePagination("left")}>
           <CaretLeft weight="bold" size={40} />
         </ArrowPagination>
@@ -214,7 +214,7 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
           );
         })}
       </Wrapper>
-      {content.length > 1 && (
+      {content.length > 1 && position < 6 && (
         <ArrowPagination side="right" onClick={() => handlePagination("right")}>
           <CaretRight weight="bold" size={40} />
         </ArrowPagination>
