@@ -14,6 +14,7 @@ import {
   Season,
   Person,
   SearchResult,
+  Discover,
 } from "../types/MoviesType";
 import AppReducer from "./AppReducer";
 
@@ -158,9 +159,9 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     const res = await API_URL.get(
       `discover/${type}?api_key=${API_KEY}&language=pt-BR&region=br&sort_by=popularity.desc&page=${page}&with_genres=${genres.toString()}`
     );
-    const data: ContentResponse[] = await res.data.results;
+    const data: Discover = await res.data;
 
-    data.map((item) => {
+    data.results.map((item) => {
       item.media_type = type;
     });
 
