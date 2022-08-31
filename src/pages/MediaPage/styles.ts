@@ -166,7 +166,7 @@ export const VideoType = styled(VideoName)`
 // photos
 
 export const PhotosContainer = styled.div`
-  margin: 0 4rem 2rem;
+  margin: 0 4rem 8rem;
   display: flex;
   flex-direction: column;
   gap: 4rem;
@@ -188,28 +188,12 @@ export const PhotosContent = styled.ul`
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 2rem 1rem;
 `;
 
 export const PhotoLi = styled.li`
   max-width: 30rem;
   width: 100%;
-
-  @keyframes animate {
-    0% {
-      opacity: 0;
-      visibility: hidden;
-    }
-    50% {
-      opacity: 0.5;
-      visibility: visible;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  animation: animate 0.5s ease-in;
 `;
 
 // episodes
