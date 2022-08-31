@@ -8,6 +8,7 @@ import {
   StarHalf,
 } from "phosphor-react";
 import { useContext, useRef, useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
 import { ContentResponse } from "../../types/MoviesType";
@@ -142,11 +143,13 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
                 >
                   {images.logos.length > 0 ? (
                     <LogoTitleWrapper>
-                      <LogoTitleImg
-                        loading="lazy"
+                      <LazyLoadImage
+                        effect="blur"
                         alt={title || name}
                         title={title || name}
                         src={`https://image.tmdb.org/t/p/w500${images.logos[0]?.file_path}`}
+                        width="100%"
+                        height="100%"
                       />
                     </LogoTitleWrapper>
                   ) : (
