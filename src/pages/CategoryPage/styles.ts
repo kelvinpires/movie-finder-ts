@@ -53,4 +53,9 @@ export const Button = styled.button`
   color: var(--black);
   border-radius: 0.3rem;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
