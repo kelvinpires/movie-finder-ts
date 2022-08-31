@@ -96,3 +96,14 @@ export const Pagination = styled(Link)`
       border-color: var(--gray);
     `}
 `;
+
+export const ItemsContainer = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 1rem;
+`;
+
+export const PhotoWrapper = styled.div`
+  max-width: 25rem;
+  height: auto;
+`;
