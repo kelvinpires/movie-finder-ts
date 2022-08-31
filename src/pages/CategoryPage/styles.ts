@@ -17,12 +17,13 @@ type GenreProps = {
 };
 
 export const Genre = styled.span`
-  border: 0.2rem solid var(--gray);
-  color: var(--gray);
-  border-radius: 0.5rem;
+  border: 0.1rem solid #343434;
+
+  color: var(--white);
+  border-radius: 3rem;
   font-size: 1.6rem;
   font-weight: 500;
-  padding: 1rem 2rem;
+  padding: 1rem 3rem;
   text-transform: uppercase;
   cursor: pointer;
 
@@ -46,7 +47,7 @@ export const ContentWrapper = styled.ul`
 export const Button = styled.button`
   border: 0;
   padding: 1.5rem 2rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   background-color: var(--white);
   color: var(--black);
