@@ -76,7 +76,9 @@ export const MediaPage = () => {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div style={{ color: "white", fontSize: "5rem" }}>Carregando...</div>
+    );
   }
 
   return (
@@ -398,7 +400,7 @@ export const MediaPage = () => {
                                   alt={name || title}
                                   width="100%"
                                   height="100%"
-                                  delayMethod="debounce"
+                                  threshold={-100}
                                 />
                               </PhotoLi>
                             ))}
@@ -422,6 +424,7 @@ export const MediaPage = () => {
                                   alt={name || title}
                                   width="100%"
                                   height="100%"
+                                  threshold={-100}
                                 />
                               </PhotoLi>
                             ))}
