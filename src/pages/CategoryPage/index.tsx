@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Banner } from "../../components/Banner";
 import { Card } from "../../components/Card";
 import { GlobalContext } from "../../context/GlobalContext";
-import { ContentResponse } from "../../types/MoviesType";
+import { ContentResponse, Discover } from "../../types/MoviesType";
 
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
@@ -19,7 +19,6 @@ import {
 export const CategoryPage = () => {
   const [genres, setGenres] = useState<Array<{ id: number; name: string }>>([]);
   const [activeGenres, setActiveGenres] = useState<number[]>([]);
-  const [page, setPage] = useState<number>(1);
 
   const { getCategory, getGenres, getContentByGenre } =
     useContext(GlobalContext);
@@ -37,7 +36,6 @@ export const CategoryPage = () => {
 
       setGenres(allGenres);
       setActiveGenres([]);
-      await setPage(1);
       scrollTo({ top: 0 });
 
       refetch();
@@ -54,10 +52,12 @@ export const CategoryPage = () => {
     fetchNextPage,
     isLoading: contentLoading,
     refetch,
-  } = useInfiniteQuery<ContentResponse[]>(
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery<Discover>(
     ["page", activeGenres],
     async ({ pageParam = 1 }) => {
-      const content: ContentResponse[] = await getContentByGenre(
+      const content: Discover = await getContentByGenre(
         type!,
         activeGenres,
         pageParam
@@ -67,7 +67,8 @@ export const CategoryPage = () => {
     },
     {
       refetchOnWindowFocus: false,
-      getNextPageParam: () => page + 1,
+      getNextPageParam: (lastPage) =>
+        lastPage.page != lastPage.total_pages ? lastPage.page + 1 : undefined,
     }
   );
 
@@ -104,16 +105,15 @@ export const CategoryPage = () => {
           {!contentLoading &&
             data?.pages?.map((item, i) => (
               <React.Fragment key={i}>
-                {item.map((content) => {
+                {item.results.map((content) => {
                   return <Card key={content.id} item={content} />;
                 })}
               </React.Fragment>
             ))}
         </ContentWrapper>
         <Button
-          onClick={() => {
-            setPage(page + 1), fetchNextPage();
-          }}
+          disabled={!hasNextPage || isFetchingNextPage}
+          onClick={() => fetchNextPage()}
         >
           Carregar mais
         </Button>
