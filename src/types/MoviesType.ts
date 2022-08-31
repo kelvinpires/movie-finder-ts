@@ -682,3 +682,12 @@ export interface Season {
 }
 
 export type ContentResponse = Movies & Tv;
+
+// discover
+
+export interface Discover {
+  page: number;
+  results: ContentResponse[];
+  total_results: number;
+  total_pages: number;
+}
