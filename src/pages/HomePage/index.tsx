@@ -19,19 +19,26 @@ export const HomePage = () => {
     }
   );
 
-  const { data: popularMovies } = useQuery<ContentResponse[]>(
-    ["movies"],
-    () => {
-      const category = getCategory("movie", "popular")!;
+  const { data: popularMovies, isLoading: movieLoading } = useQuery<
+    ContentResponse[]
+  >(["movies"], () => {
+    const category = getCategory("movie", "popular")!;
 
-      return category;
-    }
-  );
-  const { data: popularSeries } = useQuery<ContentResponse[]>(["tv"], () => {
+    return category;
+  });
+  const { data: popularSeries, isLoading: tvLoading } = useQuery<
+    ContentResponse[]
+  >(["tv"], () => {
     const category = getCategory("tv", "popular")!;
 
     return category;
   });
+
+  if (isLoading || movieLoading || tvLoading) {
+    return (
+      <div style={{ color: "white", fontSize: "5rem" }}>Carregando...</div>
+    );
+  }
 
   return (
     <>
