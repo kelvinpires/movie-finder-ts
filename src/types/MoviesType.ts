@@ -90,7 +90,7 @@ export interface WatchProviders {
   results: ResultsProviders;
 }
 
-export interface Cast {
+export interface MovieCast {
   adult: boolean;
   gender: number;
   id: number;
@@ -105,8 +105,8 @@ export interface Cast {
   order: number;
 }
 
-export interface Credits {
-  cast: Cast[];
+export interface MovieCredits {
+  cast: MovieCast[];
 }
 
 export interface Backdrop {
@@ -205,7 +205,7 @@ export interface Movies {
   vote_average: number;
   videos: Videos;
   "watch/providers": WatchProviders;
-  credits: Credits;
+  credits: MovieCredits;
   images: Images;
   release_dates: ReleaseDates;
   recommendations: Recommendations;
@@ -328,7 +328,7 @@ export interface Result3 {
   origin_country: string[];
 }
 
-export interface Cast {
+export interface TvCast {
   adult: boolean;
   gender: number;
   id: number;
@@ -342,7 +342,7 @@ export interface Cast {
   order: number;
 }
 
-export interface Crew {
+export interface TvCrew {
   adult: boolean;
   gender: number;
   id: number;
@@ -356,9 +356,9 @@ export interface Crew {
   job: string;
 }
 
-export interface Credits {
-  cast: Cast[];
-  crew: Crew[];
+export interface TvCredits {
+  cast: TvCast[];
+  crew: TvCrew[];
 }
 
 export interface Backdrop {
@@ -433,7 +433,7 @@ export interface Tv {
   content_ratings: ContentRatings;
   "watch/providers": WatchProviders;
   recommendations: Recommendations;
-  credits: Credits;
+  credits: TvCredits;
   images: Images;
 }
 
@@ -449,15 +449,16 @@ export interface ProfileImages {
   width: number;
 }
 
-export interface Images {
+export interface PersonImages {
   profiles: ProfileImages[];
 }
 
-export interface Cast {
+export interface PersonMovieCastInfo {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
   id: number;
+  media_type?: string;
   original_language: string;
   original_title: string;
   overview: string;
@@ -465,6 +466,8 @@ export interface Cast {
   poster_path: string;
   release_date: string;
   title: string;
+  name?: string;
+
   video: boolean;
   vote_average: number;
   vote_count: number;
@@ -473,7 +476,7 @@ export interface Cast {
   order: number;
 }
 
-export interface Crew {
+export interface PersonMovieCrewInfo {
   adult: boolean;
   backdrop_path?: any;
   genre_ids: number[];
@@ -493,16 +496,17 @@ export interface Crew {
   job: string;
 }
 
-export interface MovieCredits {
-  cast: Cast[];
-  crew: Crew[];
+export interface PersonMovieCredits {
+  cast: PersonMovieCastInfo[];
+  crew: PersonMovieCrewInfo[];
 }
 
-export interface Cast2 {
+export interface PersonTvCastInfo {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
   id: number;
+  media_type?: string;
   origin_country: string[];
   original_language: string;
   original_name: string;
@@ -510,6 +514,7 @@ export interface Cast2 {
   popularity: number;
   poster_path: string;
   first_air_date: string;
+  title?: string;
   name: string;
   vote_average: number;
   vote_count: number;
@@ -518,7 +523,7 @@ export interface Cast2 {
   episode_count: number;
 }
 
-export interface Crew2 {
+export interface PersonTvCrewInfo {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -539,9 +544,9 @@ export interface Crew2 {
   job: string;
 }
 
-export interface TvCredits {
-  cast: Cast2[];
-  crew: Crew2[];
+export interface PersonTvCredits {
+  cast: PersonTvCastInfo[];
+  crew: PersonTvCrewInfo[];
 }
 
 export interface Person {
@@ -559,9 +564,9 @@ export interface Person {
   place_of_birth: string;
   popularity: number;
   profile_path: string;
-  images: Images;
-  movie_credits: MovieCredits;
-  tv_credits: TvCredits;
+  images: PersonImages;
+  movie_credits: PersonMovieCredits;
+  tv_credits: PersonTvCredits;
 }
 
 // search
@@ -621,7 +626,7 @@ export interface SearchType {
 
 // episodes
 
-export interface Crew {
+export interface EpisodeCrew {
   job: string;
   department: string;
   credit_id: string;
@@ -662,7 +667,7 @@ export interface Episode {
   still_path: string;
   vote_average: number;
   vote_count: number;
-  crew: Crew[];
+  crew: EpisodeCrew[];
   guest_stars: GuestStar[];
 }
 
