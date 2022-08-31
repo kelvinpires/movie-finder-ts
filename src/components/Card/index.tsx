@@ -3,9 +3,12 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import {
   ContentResponse,
-  Cast,
+  MovieCast,
+  TvCast,
   ResultRecommendations,
   SearchResult,
+  PersonMovieCastInfo,
+  PersonTvCastInfo,
 } from "../../types/MoviesType";
 import {
   CardLi,
@@ -18,8 +21,12 @@ import {
 } from "./styles";
 
 type CardT = {
-  item?: ContentResponse | ResultRecommendations;
-  cast?: Cast;
+  item?:
+    | ContentResponse
+    | ResultRecommendations
+    | PersonMovieCastInfo
+    | PersonTvCastInfo;
+  cast?: MovieCast & TvCast;
   search?: SearchResult;
 };
 
