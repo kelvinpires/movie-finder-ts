@@ -2,7 +2,8 @@ import { CaretLeft, CaretRight } from "phosphor-react";
 import { useRef } from "react";
 import {
   ContentResponse,
-  Cast,
+  MovieCast,
+  TvCast,
   ResultRecommendations,
 } from "../../types/MoviesType";
 import { Card } from "../Card";
@@ -16,7 +17,7 @@ import {
 
 type Props = {
   content?: ContentResponse[] | ResultRecommendations[];
-  cast?: Cast[];
+  cast?: MovieCast[] & TvCast[];
   subtitle: string;
 };
 
