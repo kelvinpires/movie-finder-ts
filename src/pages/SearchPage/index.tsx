@@ -29,7 +29,7 @@ export const SearchPage = () => {
     <Container>
       <Searchbar>
         <SearchIcon>
-          <MagnifyingGlass size={34} weight="bold" />
+          <MagnifyingGlass size={28} weight="light" />
         </SearchIcon>
         <Input
           autoFocus={true}

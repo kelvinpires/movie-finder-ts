@@ -13,27 +13,27 @@ export const Menubar = () => {
       <NavigationUl>
         <NavigationLi>
           <NavigationLink to="/">
-            <House size={34} weight="bold" />
+            <House size={34} weight="light" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/movie">
-            <FilmSlate size={34} weight="bold" />
+            <FilmSlate size={34} weight="light" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/tv">
-            <TelevisionSimple size={34} weight="bold" />
+            <TelevisionSimple size={34} weight="light" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/watchlist">
-            <Plus size={34} weight="bold" />
+            <Plus size={34} weight="light" />
           </NavigationLink>
         </NavigationLi>
         <NavigationLi>
           <NavigationLink to="/search">
-            <MagnifyingGlass size={34} weight="bold" />
+            <MagnifyingGlass size={34} weight="light" />
           </NavigationLink>
         </NavigationLi>
       </NavigationUl>
