@@ -414,10 +414,7 @@ export const MediaPage = () => {
                           </PhotosLengthText>
                           <PhotosContent>
                             {images.posters.map((poster) => (
-                              <PhotoLi
-                                key={poster.file_path}
-                                style={{ maxWidth: "25rem" }}
-                              >
+                              <PhotoLi key={poster.file_path}>
                                 <LazyLoadImage
                                   effect="blur"
                                   src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${poster.file_path}`}

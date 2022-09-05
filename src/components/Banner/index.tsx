@@ -138,7 +138,7 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
             <Content key={id}>
               <DescriptionWrapper>
                 <Link
-                  style={{ textDecoration: "none", maxWidth: "60%" }}
+                  style={{ textDecoration: "none", maxWidth: "80%" }}
                   to={`/${media_type}/${id}`}
                 >
                   {images.logos.length > 0 ? (
@@ -147,9 +147,13 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
                         effect="blur"
                         alt={title || name}
                         title={title || name}
-                        src={`https://image.tmdb.org/t/p/w500${images.logos[0]?.file_path}`}
+                        src={`https://image.tmdb.org/t/p/w400${
+                          images.logos[images.logos.length - 1]?.file_path
+                        }`}
                         width="100%"
                         height="100%"
+                        style={{ maxHeight: "20rem" }}
+                        className="logo-img"
                       />
                     </LogoTitleWrapper>
                   ) : (
@@ -182,9 +186,10 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
                         setVideoKey?.(videos.results[0].key);
                         setShowTrailer?.(true);
                       }}
+                      className="trailer-btn"
                     >
-                      <Play weight="bold" size={20} />
-                      Ver trailer
+                      <Play weight="fill" size={20} />
+                      Trailer
                     </Button>
                   )}
 
