@@ -4,12 +4,20 @@ import styled, { css } from "styled-components";
 export const Container = styled.div`
   padding: 5rem;
   text-align: center;
+
+  @media screen and (max-width: 500px) {
+    padding: 5rem 2rem;
+  }
 `;
 
 export const GenresWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem 1rem;
+
+  @media screen and (max-width: 500px) {
+    justify-content: center;
+  }
 `;
 
 type GenreProps = {
@@ -34,6 +42,10 @@ export const Genre = styled.span`
       color: var(--black);
       border-color: var(--white);
     `}
+
+  @media screen and (max-width: 768px) {
+    padding: 1.5rem 3rem;
+  }
 `;
 
 export const ContentWrapper = styled.ul`
@@ -42,6 +54,11 @@ export const ContentWrapper = styled.ul`
   flex-wrap: wrap;
   gap: 2rem 1rem;
   margin: 10rem 0;
+
+  @media screen and (max-width: 500px) {
+    justify-content: center;
+    gap: 2rem;
+  }
 `;
 
 export const Button = styled.button`

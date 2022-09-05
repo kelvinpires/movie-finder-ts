@@ -2,8 +2,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const CardLi = styled.li`
-  min-height: 35rem;
-  width: 25rem;
+  @media screen and (max-width: 679px) {
+    min-height: 30rem;
+    width: 20rem;
+  }
+
+  @media screen and (min-width: 680px) {
+    min-height: 35rem;
+    width: 25rem;
+  }
 `;
 
 export const Redirect = styled(Link)`
@@ -15,12 +22,19 @@ export const Redirect = styled(Link)`
 
 export const PosterWrapper = styled.div`
   height: 100%;
-  width: 25rem;
 
   transition: all 0.25s ease-in-out;
 
   &:hover {
     transform: scale(1.03);
+  }
+
+  @media screen and (max-width: 679px) {
+    width: 20rem;
+  }
+
+  @media screen and (min-width: 680px) {
+    width: 25rem;
   }
 `;
 

@@ -48,4 +48,8 @@ export const Wrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    gap: 2rem;
+  }
 `;

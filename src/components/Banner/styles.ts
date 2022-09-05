@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 70vh;
+  height: 60rem;
   position: relative;
 `;
 
@@ -25,10 +25,6 @@ export const Content = styled.div`
 export const DescriptionWrapper = styled.div`
   position: absolute;
   left: 0;
-  width: 50%;
-  top: 0;
-  height: 100%;
-  padding-left: 6rem;
   z-index: 2;
   display: flex;
   align-items: flex-start;
@@ -36,11 +32,31 @@ export const DescriptionWrapper = styled.div`
   flex-direction: column;
   gap: 2rem;
   background: linear-gradient(to right, #090909 80%, #1f1f1e00);
+
+  @media screen and (max-width: 500px) {
+    background: linear-gradient(to top, #090909 60%, #1f1f1e00);
+    bottom: 0;
+    width: 100%;
+    min-height: 50%;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 501px) {
+    top: 0;
+    padding-left: 6rem;
+    width: 50%;
+    height: 100%;
+  }
 `;
 
 export const LogoTitleWrapper = styled.div`
-  max-width: 320px;
-  min-width: 20rem;
+  /* max-width: 32rem; */
+
+  @media screen and (max-width: 500px) {
+    .logo-img {
+      max-height: 15rem !important;
+    }
+  }
 `;
 
 export const TitleText = styled.h1`
@@ -59,6 +75,10 @@ export const InfoWrapper = styled.div`
   align-items: center;
   gap: 1rem;
   color: var(--gray);
+
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const Span = styled.span`
@@ -83,6 +103,10 @@ export const Overview = styled.p`
   color: var(--white);
   font-weight: 400;
   line-height: 1.6;
+
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const ActionWrapper = styled.div`
@@ -90,6 +114,18 @@ export const ActionWrapper = styled.div`
   align-items: center;
   gap: 2rem;
   margin-top: 2rem;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    padding-bottom: 1rem;
+
+    .trailer-btn {
+      width: 60vw;
+      background: var(--white);
+      color: var(--black);
+      justify-content: center;
+    }
+  }
 `;
 
 export const Redirect = styled(Link)`
@@ -103,6 +139,10 @@ export const Redirect = styled(Link)`
   border: 0.2rem solid var(--body);
   &:hover {
     background-color: #1f1f1e60;
+  }
+
+  @media screen and (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -141,6 +181,10 @@ export const BackdropWapper = styled.div`
   position: absolute;
   right: 0;
   top: 0;
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const Image = styled.img`

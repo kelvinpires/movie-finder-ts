@@ -28,6 +28,14 @@ export const Wrapper = styled.ul`
   overflow: hidden;
   padding: 0 5rem;
   scroll-behavior: smooth;
+
+  @media screen and (max-width: 768px) {
+    overflow: auto;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    padding-right: 1rem;
+  }
 `;
 
 // arrows
@@ -58,5 +66,9 @@ export const ArrowPagination = styled.div`
 
   &:hover {
     background: linear-gradient(to top, #00000000 5%, #00000090);
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;

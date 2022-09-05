@@ -11,8 +11,9 @@ export const Details = styled.section`
 `;
 
 export const PosterWrapper = styled.div`
-  min-width: 37rem;
-  min-height: 55.6rem;
+  @media screen and (max-width: 679px) {
+    display: none;
+  }
 `;
 
 export const Image = styled.img`
@@ -25,6 +26,9 @@ export const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  @media screen and (min-width: 680px) {
+    width: 80%;
+  }
 `;
 
 export const Title = styled.h1`
@@ -82,6 +86,10 @@ export const PaginationContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5rem 0;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
 type PaginationType = {
@@ -105,7 +113,15 @@ export const Pagination = styled(Link)`
     isclicked &&
     css`
       border-color: var(--gray);
+      @media screen and (max-width: 1000px) {
+        background-color: #99999920;
+      }
     `}
+
+  @media screen and (max-width: 1000px) {
+    flex: 1;
+    padding: 2rem 1rem;
+  }
 `;
 
 // videos
@@ -115,20 +131,35 @@ export const VideosContainer = styled.section`
   flex-wrap: wrap;
   gap: 2rem;
   margin: 0 4rem 2rem;
+
+  @media screen and (max-width: 1024px) {
+    margin: 0 3rem 2rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+    margin: 0 1rem 2rem;
+  }
 `;
 
 export const VideoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  max-width: 355px;
-  width: 100%;
+
+  @media screen and (max-width: 768px) {
+    max-width: 20rem;
+  }
+
+  @media screen and (min-width: 769px) {
+    max-width: 35.5rem;
+  }
 `;
 
 export const VideoPosterWrapper = styled.div`
   position: relative;
   width: 100%;
-  max-height: 200px;
+  max-height: 20rem;
   cursor: pointer;
 `;
 
@@ -192,8 +223,16 @@ export const PhotosContent = styled.ul`
 `;
 
 export const PhotoLi = styled.li`
-  max-width: 30rem;
   width: 100%;
+  margin: auto;
+
+  @media screen and (max-width: 768px) {
+    max-width: 20rem;
+  }
+
+  @media screen and (min-width: 769px) {
+    max-width: 25rem;
+  }
 `;
 
 // episodes
@@ -212,6 +251,11 @@ export const Select = styled.select`
   font-weight: 700;
   display: block;
   margin-bottom: 4rem;
+
+  @media screen and (max-width: 768px) {
+    margin: 0 auto 4rem;
+    width: 100%;
+  }
 `;
 
 export const Option = styled.option`
@@ -236,12 +280,24 @@ export const EpisodeContent = styled.li`
   gap: 1rem;
   width: 40rem;
   min-height: 23rem;
+
+  @media screen and (max-width: 768px) {
+    margin: auto;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const EpisodeImageContent = styled.div`
   width: 100%;
   height: 23rem;
   background-color: var(--black);
+
+  @media screen and (max-width: 500px) {
+    height: auto;
+  }
 `;
 
 export const EpisodeImage = styled.img`

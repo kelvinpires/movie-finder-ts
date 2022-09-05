@@ -10,6 +10,16 @@ export const GlobalStyles = createGlobalStyle`
     body {
         padding-left: 10rem;
         background-color: var(--body);
+
+        
+
+        @media screen and (max-width: 1000px) {
+            padding-left: 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            padding-bottom: 10rem;
+        }
     }
 
     html {
@@ -20,6 +30,10 @@ export const GlobalStyles = createGlobalStyle`
         --gray: #999;
         --black: #000;
         --body: #141414;
-        --yellow: #FFCB47
+        --yellow: #FFCB47;
+
+        @media screen and (max-width: 1024px) {
+            font-size: 50%;
+        }
     }
 `;
