@@ -82,21 +82,21 @@ export const PersonPage = () => {
         <Pagination
           onClick={() => setPaginationType("movies")}
           to="#"
-          clicked={paginationType === "movies"}
+          clicked={paginationType === "movies" ?? false}
         >
           Filmes
         </Pagination>
         <Pagination
           onClick={() => setPaginationType("tv")}
           to="#"
-          clicked={paginationType === "tv"}
+          clicked={paginationType === "tv" ?? false}
         >
           Séries
         </Pagination>
         <Pagination
           onClick={() => setPaginationType("photos")}
           to="#"
-          clicked={paginationType === "photos"}
+          clicked={paginationType === "photos" ?? false}
         >
           Fotos
         </Pagination>
@@ -116,7 +116,7 @@ export const PersonPage = () => {
         {paginationType === "photos" &&
           data?.images.profiles.map((image) => {
             return (
-              <PhotoWrapper>
+              <PhotoWrapper key={image.file_path}>
                 <LazyLoadImage
                   src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${image.file_path}`}
                   effect="blur"

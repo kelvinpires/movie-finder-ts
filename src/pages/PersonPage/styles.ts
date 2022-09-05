@@ -74,7 +74,7 @@ export const PaginationContainer = styled.div`
 `;
 
 type PaginationType = {
-  clicked: boolean;
+  clicked: boolean | undefined;
 };
 
 export const Pagination = styled(Link)`
