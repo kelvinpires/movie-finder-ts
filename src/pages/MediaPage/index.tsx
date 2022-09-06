@@ -146,6 +146,8 @@ export const MediaPage = () => {
                 videos,
                 images,
                 seasons,
+                content_ratings,
+                release_dates,
               } = item;
 
               // date
@@ -158,6 +160,11 @@ export const MediaPage = () => {
               const hour = Math.floor(totalHours);
               const minutes = Math.round((totalHours - hour) * 60);
               const time = `${hour}h ${minutes}min`;
+
+              // certification
+              const certification = content_ratings
+                ? content_ratings.results[0]?.rating
+                : release_dates.results[0]?.release_dates[0].certification;
 
               return (
                 <Container key={id}>
@@ -182,6 +189,10 @@ export const MediaPage = () => {
                             <InfoLi>
                               <InfoLabel>Data de lançamento</InfoLabel>
                               <InfoValue>{date}</InfoValue>
+                            </InfoLi>
+                            <InfoLi>
+                              <InfoLabel>Classificação</InfoLabel>
+                              <InfoValue>{certification}</InfoValue>
                             </InfoLi>
                             {created_by && (
                               <InfoLi>
