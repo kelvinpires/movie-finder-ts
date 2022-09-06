@@ -46,6 +46,7 @@ import {
 } from "./styles";
 
 import { useQuery } from "@tanstack/react-query";
+import { LoadScreen } from "../../components/LoadScreen";
 
 export const MediaPage = () => {
   const [showTrailer, setShowTrailer] = useState<boolean>(false);
@@ -76,9 +77,7 @@ export const MediaPage = () => {
   }
 
   if (isLoading) {
-    return (
-      <div style={{ color: "white", fontSize: "5rem" }}>Carregando...</div>
-    );
+    return <LoadScreen />;
   }
 
   return (

@@ -6,6 +6,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { ContentResponse } from "../../types/MoviesType";
 
 import { useQuery } from "@tanstack/react-query";
+import { LoadScreen } from "../../components/LoadScreen";
 
 export const HomePage = () => {
   const { getCategory, getTrending } = useContext(GlobalContext);
@@ -35,9 +36,7 @@ export const HomePage = () => {
   });
 
   if (isLoading || movieLoading || tvLoading) {
-    return (
-      <div style={{ color: "white", fontSize: "5rem" }}>Carregando...</div>
-    );
+    return <LoadScreen />;
   }
 
   return (

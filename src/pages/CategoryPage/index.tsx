@@ -15,6 +15,7 @@ import {
   Genre,
   GenresWrapper,
 } from "./styles";
+import { LoadScreen } from "../../components/LoadScreen";
 
 export const CategoryPage = () => {
   const [genres, setGenres] = useState<Array<{ id: number; name: string }>>([]);
@@ -81,9 +82,13 @@ export const CategoryPage = () => {
     }
   }
 
+  if (isLoading) {
+    return <LoadScreen />;
+  }
+
   return (
     <>
-      {!isLoading && <Banner content={content!.slice(0, 7)} />}
+      {<Banner content={content!.slice(0, 7)} />}
 
       <Container>
         <GenresWrapper>
