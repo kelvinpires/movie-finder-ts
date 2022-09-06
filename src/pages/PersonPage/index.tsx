@@ -24,6 +24,7 @@ import {
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Card } from "../../components/Card";
+import { LoadScreen } from "../../components/LoadScreen";
 
 export const PersonPage = () => {
   const [paginationType, setPaginationType] = useState<string>("movies");
@@ -36,9 +37,7 @@ export const PersonPage = () => {
   );
 
   if (isLoading) {
-    return (
-      <div style={{ color: "white", fontSize: "5rem" }}>Carregando...</div>
-    );
+    return <LoadScreen />;
   }
 
   if (isError) {
