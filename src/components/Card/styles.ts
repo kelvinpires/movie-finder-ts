@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const CardLi = styled.li`
+  list-style: none;
   @media screen and (max-width: 679px) {
     min-height: 30rem;
     width: 20rem;
@@ -45,6 +46,11 @@ export const NotFoundImg = styled.div`
   align-items: center;
   justify-content: center;
   border: 0.1rem solid var(--gray);
+
+  @media screen and (max-width: 679px) {
+    max-height: 30rem;
+    width: 20rem;
+  }
 `;
 
 export const DescriptionWrapper = styled.div`
