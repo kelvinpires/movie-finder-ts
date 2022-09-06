@@ -32,11 +32,6 @@ export const ProfilePhoto = styled.div`
   }
 `;
 
-export const ProfileImg = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
 export const BioContainer = styled.div`
   display: flex;
   flex-direction: column;

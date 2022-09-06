@@ -66,11 +66,6 @@ export const TitleText = styled.h1`
   color: var(--white);
 `;
 
-export const LogoTitleImg = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
 export const InfoWrapper = styled.div`
   display: flex;
   align-items: center;

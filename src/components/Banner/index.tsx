@@ -24,7 +24,6 @@ import {
   DescriptionWrapper,
   Image,
   InfoWrapper,
-  LogoTitleImg,
   LogoTitleWrapper,
   Overview,
   Pagination,

@@ -20,12 +20,6 @@ export const PosterWrapper = styled.div`
   }
 `;
 
-export const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
 export const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -310,22 +304,6 @@ export const EpisodeImageContent = styled.div`
   @media screen and (max-width: 500px) {
     height: auto;
   }
-`;
-
-export const EpisodeImage = styled.img`
-  width: 100%;
-  height: 100%;
-
-  @keyframes animate {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  animation: animate 0.25s ease-in-out;
 `;
 
 export const EpisodeName = styled.span`
