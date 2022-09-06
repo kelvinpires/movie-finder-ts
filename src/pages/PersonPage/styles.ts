@@ -3,17 +3,33 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.main`
   padding: 5rem;
+  @media screen and (max-width: 1000px) {
+    padding: 5rem 0rem;
+  }
 `;
 
 export const PersonWrapper = styled.section`
   display: flex;
   gap: 2rem;
+
+  @media screen and (max-width: 1000px) {
+    padding: 0 2rem;
+  }
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const ProfilePhoto = styled.div`
   background-color: var(--black);
-  max-height: 40rem;
   height: 100%;
+
+  @media screen and (max-width: 700px) {
+    width: 30rem;
+    height: auto;
+  }
 `;
 
 export const ProfileImg = styled.img`
@@ -94,16 +110,32 @@ export const Pagination = styled(Link)`
     clicked &&
     css`
       border-color: var(--gray);
+      @media screen and (max-width: 1000px) {
+        background-color: #99999920;
+      }
     `}
+
+  @media screen and (max-width: 1000px) {
+    flex: 1;
+    padding: 2rem 1rem;
+  }
 `;
 
 export const ItemsContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem 1rem;
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const PhotoWrapper = styled.div`
   max-width: 25rem;
   height: auto;
+
+  @media screen and (max-width: 700px) {
+    max-width: 20rem;
+  }
 `;
