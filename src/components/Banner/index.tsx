@@ -7,7 +7,8 @@ import {
   Star,
   StarHalf,
 } from "phosphor-react";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
+import { useSwipeable } from "react-swipeable";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -42,52 +43,38 @@ type Props = {
 
 export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
   const [position, setPosition] = useState<number>(0);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
 
   const { addToWatchlist, removeFromWatchlist, store } =
     useContext(GlobalContext);
 
-  function handlePagination(side: string, index?: number) {
-    const scroll = carouselRef.current!.offsetWidth;
-
-    if (side == "left") {
-      carouselRef.current!.scrollLeft =
-        carouselRef.current!.scrollLeft - scroll;
-
-      if (position < 1) {
-        setPosition(0);
-      } else {
-        setPosition(position - 1);
-      }
+  function handlePagination(index: number) {
+    if (index < 0) {
+      return setPosition(0);
     }
-    if (side == "right") {
-      carouselRef.current!.scrollLeft =
-        carouselRef.current!.scrollLeft + scroll;
-
-      if (position > 5) {
-        setPosition(6);
-      } else {
-        setPosition(position + 1);
-      }
+    if (index > content.length - 1) {
+      return setPosition(content.length - 1);
     }
 
-    if (side == "pagination") {
-      carouselRef.current!.scrollLeft = Math.round(
-        carouselRef.current!.offsetWidth * index!
-      );
-      setPosition(index!);
-    }
+    setPosition(index);
   }
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handlePagination(position + 1),
+    onSwipedRight: () => handlePagination(position - 1),
+  });
 
   return (
     <Container>
       {content.length > 1 && position > 0 && (
-        <ArrowPagination side="left" onClick={() => handlePagination("left")}>
+        <ArrowPagination
+          side="left"
+          onClick={() => handlePagination(position - 1)}
+        >
           <CaretLeft weight="bold" size={40} />
         </ArrowPagination>
       )}
 
-      <Wrapper ref={carouselRef}>
+      <Wrapper {...handlers}>
         {content?.map((movie) => {
           const {
             title,
@@ -135,7 +122,10 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
           const isButtonDisabled = videos.results.length < 1;
 
           return (
-            <Content key={id}>
+            <Content
+              key={id}
+              style={{ transform: `translateX(-${position * 100}%)` }}
+            >
               <DescriptionWrapper>
                 <Link
                   style={{ textDecoration: "none", maxWidth: "80%" }}
@@ -147,9 +137,7 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
                         effect="blur"
                         alt={title || name}
                         title={title || name}
-                        src={`https://image.tmdb.org/t/p/w400${
-                          images.logos[images.logos.length - 1]?.file_path
-                        }`}
+                        src={`https://image.tmdb.org/t/p/w400${images.logos[0]?.file_path}`}
                         width="100%"
                         height="100%"
                         style={{ maxHeight: "20rem" }}
@@ -223,7 +211,10 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
         })}
       </Wrapper>
       {content.length > 1 && position < 6 && (
-        <ArrowPagination side="right" onClick={() => handlePagination("right")}>
+        <ArrowPagination
+          side="right"
+          onClick={() => handlePagination(position + 1)}
+        >
           <CaretRight weight="bold" size={40} />
         </ArrowPagination>
       )}
@@ -236,7 +227,7 @@ export const Banner = ({ content, setShowTrailer, setVideoKey }: Props) => {
                 <Pagination
                   position={index === position}
                   key={movie.id}
-                  onClick={() => handlePagination("pagination", index)}
+                  onClick={() => handlePagination(index)}
                 />
               );
             })}
