@@ -6,7 +6,7 @@ export const Container = styled.div`
   text-align: center;
 
   @media screen and (max-width: 500px) {
-    padding: 5rem 2rem;
+    padding: 5rem 1rem;
   }
 `;
 

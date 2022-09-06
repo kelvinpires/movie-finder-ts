@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 8rem 4rem 2rem;
+
+  @media screen and (max-width: 500px) {
+    padding: 4rem 1rem 2rem;
+  }
 `;
 
 export const Subtitle = styled.span`
