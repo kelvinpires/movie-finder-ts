@@ -20,6 +20,7 @@ export const Content = styled.div`
   min-width: 100%;
   height: 100%;
   position: relative;
+  transition: transform 0.3s ease-in-out;
 `;
 
 export const DescriptionWrapper = styled.div`
@@ -220,6 +221,10 @@ export const ArrowPagination = styled.div`
 
   &:hover {
     background-color: #1f1f1e20;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 
