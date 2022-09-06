@@ -8,6 +8,10 @@ export const Details = styled.section`
   display: flex;
   align-items: flex-start;
   gap: 2rem;
+
+  @media screen and (max-width: 500px) {
+    padding: 0 2rem 2rem;
+  }
 `;
 
 export const PosterWrapper = styled.div`
@@ -122,6 +126,10 @@ export const Pagination = styled(Link)`
     flex: 1;
     padding: 2rem 1rem;
   }
+
+  @media screen and (max-width: 500px) {
+    font-size: 2.2rem;
+  }
 `;
 
 // videos
@@ -201,6 +209,10 @@ export const PhotosContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
+
+  @media screen and (max-width: 500px) {
+    margin: 0 1rem 8rem;
+  }
 `;
 
 export const PhotosWrapper = styled.section`

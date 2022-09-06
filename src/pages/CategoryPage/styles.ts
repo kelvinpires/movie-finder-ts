@@ -45,6 +45,7 @@ export const Genre = styled.span`
 
   @media screen and (max-width: 768px) {
     padding: 1.5rem 3rem;
+    border-radius: 1rem;
   }
 `;
 

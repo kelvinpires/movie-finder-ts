@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 5rem;
+
+  @media screen and (max-width: 500px) {
+    padding: 1rem;
+  }
 `;
 
 export const Searchbar = styled.div`
@@ -51,5 +55,9 @@ export const Wrapper = styled.ul`
 
   @media screen and (max-width: 768px) {
     gap: 2rem;
+  }
+
+  @media screen and (max-width: 500px) {
+    justify-content: center;
   }
 `;

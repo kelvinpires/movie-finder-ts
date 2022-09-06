@@ -13,6 +13,10 @@ export const Subtitle = styled.h2`
   color: var(--white);
   font-weight: 400;
   margin: 0 5rem 1rem;
+
+  @media screen and (max-width: 500px) {
+    margin: 0 2rem 1rem;
+  }
 `;
 
 export const Content = styled.div`
@@ -34,7 +38,9 @@ export const Wrapper = styled.ul`
     ::-webkit-scrollbar {
       display: none;
     }
-    padding-right: 1rem;
+    @media screen and (max-width: 500px) {
+      padding: 0 2rem 0rem;
+    }
   }
 `;
 
