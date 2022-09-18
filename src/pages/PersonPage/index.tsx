@@ -25,6 +25,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Card } from "../../components/Card";
 import { LoadScreen } from "../../components/LoadScreen";
+import { NotFound } from "../../components/NotFound";
 
 export const PersonPage = () => {
   const [paginationType, setPaginationType] = useState<string>("movies");
@@ -42,6 +43,10 @@ export const PersonPage = () => {
 
   if (isError) {
     return <div>Tente novamente mais tarde</div>;
+  }
+
+  if (data.adult) {
+    return <NotFound text="Pessoa" />;
   }
 
   return (

@@ -157,7 +157,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     page: number = 1
   ) {
     const res = await API_URL.get(
-      `discover/${type}?api_key=${API_KEY}&language=pt-BR&region=br&sort_by=popularity.desc&page=${page}&with_genres=${genres.toString()}`
+      `discover/${type}?api_key=${API_KEY}&include_adult=false&language=pt-BR&region=br&sort_by=popularity.desc&page=${page}&with_genres=${genres.toString()}`
     );
     const data: Discover = await res.data;
 

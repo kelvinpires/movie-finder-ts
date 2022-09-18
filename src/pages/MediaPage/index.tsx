@@ -47,6 +47,7 @@ import {
 
 import { useQuery } from "@tanstack/react-query";
 import { LoadScreen } from "../../components/LoadScreen";
+import { NotFound } from "../../components/NotFound";
 
 export const MediaPage = () => {
   const [showTrailer, setShowTrailer] = useState<boolean>(false);
@@ -78,6 +79,10 @@ export const MediaPage = () => {
 
   if (isLoading) {
     return <LoadScreen />;
+  }
+
+  if (content?.[0].adult) {
+    return <NotFound text="Filme/Série" />;
   }
 
   return (
